@@ -1,0 +1,100 @@
+Integer Pascal for the NASCOM Computer
+======================================
+
+The Compiler runs with NASSYS1 in 1000H..3200H and needs at least 
+16K memory. This pascal compiler uses integer variables in the range
+of -32767 to +32767. 
+He has a small, strange line editor and a code generator for a user 
+defined code area. If the Compiler runs on NAS-SYS 1, then an automatic 
+keyboard repeat feature helps editing the pascal source.
+
+Start the compiler:
+E1000 <p1> <p2> 
+   if p1 is given, the compiler starts cold, else starts warm.
+   p1	: start of source buffer
+   p2	: end of source buffer
+
+   working sample:
+   ---------------
+   E1000 4000 5000
+   A0010 BEGIN
+   A0020   WRITELN('HELLO WORLD');
+   A0030 END.
+   
+   CC000				; Compile to address C000
+   T					; Terminate
+   EC000				; Execute the compiled program 
+   					; and return to Integer Pascal
+
+commands:
+  Annnn data	: Append a line with number nnnn and content data.
+  B		: Goto source begin
+  C		: Compile the source for checking the syntax
+  Cmmmm		: Compile to address mmmm
+  Dnnnn		: Delete line number nnnn
+  P		: Print Source file to printer
+  Rnnnn data	: Replace Line with new content
+  S		: Write Source file to tape (not nassys format)
+  T		: Teminate Integer Compiler. If terminated, the automatic
+  		: repeat feature don't work any more, until a cold start 
+		: is done.
+  Lnnnn		: List Source line nnnn
+  Nnnnn		: Rename Source lines with nnnn increment
+  
+ In addition to the standard pascal implementation there are a few 
+ language extentions:
+- PEEK, POKE, SHL (shift left), SHR (shift right), 
+  ELSE (in CASE statement)
+- the predefined array MEM represents the Z80 memory.
+
+Sample Program:
+---------------
+A0010 CONST NL=%0D; { NAS-SYS }
+A0020 VAR X   : ARRAY [100] OF INTEGER;
+A0030     Y,Z : INTEGER;
+A0040 PROCEDURE SORT(N);
+A0050   PROCEDURE SRT(LEFT, RIGHT);
+A0060   VAR A, B, C, D : INTEGER;
+A0070   BEGIN
+A0080     A:=LEFT; B:=RIGHT;
+A0090     C:=X[(LEFT+RIGHT) DIV 2];
+A0100     REPEAT
+A0110       WHILE X[A] < C DO A:=A+1;
+A0120       WHILE C > X[B] DO B:=B-1; 
+A0130       BEGIN
+A0140         D:=X[A]; X[A]:=X[B]; X[B]:=D;
+A0150         A:=A+1; B:=B-1;
+A0160       END
+A0170     UNTIL A > B;
+A0180     IF LEFT < B THEN SRT(LEFT, B);
+A0190     IF A < RIGHT THEN SRT(A, RIGHT);
+A0200   END;
+A0210 BEGIN { OF SORT }
+A0220   SRT(1,N);
+A0230 END; { OF SORT }
+A0240 PROCEDURE NEWLINE(X);
+A0241 BEGIN
+A0242   IF X MOD 8 = 0 THEN
+A0243     WRITE (NL")
+A0244   ELSE
+A0245     WRITE (' ')
+A0249 END;
+A0250 BEGIN { OF MAIN }
+A0260   WRITE('Enter values:',NL");
+A0270   Y:=0;
+A0280   REPEAT
+A0290     Y:=Y+1;
+A0300     READ (X[Y]);
+A0310     NEWLINE(Y);
+A0320   UNTIL X[Y]=0;
+A0330   SORT(Y-1);
+A0340   WRITE(NL",'sorted values are:',NL");
+A0350   FOR Z:=1 TO Y-1 DO
+A0360     BEGIN
+A0370       WRITE(X[Z]);
+A0380       NEWLINE(Z);
+A0390     END
+A0400  END.
+
+   
+  

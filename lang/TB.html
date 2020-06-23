@@ -1,0 +1,498 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE></TITLE>
+<META NAME="generator" CONTENT="txt2html v1.35">
+</HEAD>
+<BODY >
+<P>
+Nascom 2k Tiny Basic
+
+<P>
+Nascom adapted Dr Wang's Palo Alto Tiny Basic (Dr Dobb's Journal, May, 1976),
+which was originally written for the 8080. These notes are based on Wang's
+original explanation of the language, adapted for the Nascom version by DW
+(2008).
+
+<P>
+<STRONG>THE LANGUAGE</STRONG>
+
+<P>
+Numbers
+
+<P>
+All numbers are integers and must be less than 32767.
+
+<P>
+Variables
+
+<P>
+There are 26 variables denoted by letters A through Z.  There is also a
+single array @(I).  The dimension of this array is set automatically to make
+use of all the memory space that is left unused by the program (i.e., 0
+through SIZE/2, see SIZE function below). In this Nascom version, the start
+of the @array in memory is immediately after the end of the current program
+area).
+
+<P>
+Functions
+
+<P>
+There are 3 functions:
+<PRE>
+        ABS(X) gives the absolute value of X.
+        RND(X) gives a random number between 1 and X (inclusive).
+        SIZE gives the number of bytes left unused by the program.
+</PRE>
+
+<P>
+Arithmetic and Compare Operators
+
+<PRE>
+        /       divide.
+        *       multiply.
+        -       subtract.
+        +       add.
+        &gt;       greater than (compare).
+        &lt;       less than (compare).
+        =       equal to (compare).
+        &pound;       not equal to (compare).
+        &gt;=      greater than or equal to (compare).
+        &lt;=      less than or equal to (compare).
+</PRE>
+
+<P>
++, -, *, and / operations result in a value between -32767 and
+32767.  (-32768 is also allowed in some cases.)  All compare operators
+result in a 1 if true and a 0 if not true.
+
+<P>
+Expressions
+
+<P>
+Expressions are formed with numbers, variables, and functions with
+arithmetic and compare operators between them.  + and - signs can also
+be used at the beginning of an expression.  The value of an
+expression is evaluated from left to right, except that * and / are
+always done first, and then + and - , and then compare operators.
+Parentheses can also be used to alter the order of evaluation. Note that compare
+operators can be used in any expression. For example:
+
+<P>
+10 LET A=(X&gt;Y)*123+(X=Y)*456+(X&gt;Y)*789<BR>
+20 IF (U=1)*(V&lt;2)+(U&gt;V)*(U&lt;99)*(V&gt;3) PRINT "YES"
+30 LET R=RND(100), A=(R&gt;3)+(R&gt;15)+(R&gt;56)+(R&gt;98)
+
+<P>
+In statement 10, A will be set to 123 if X&gt;Y, to 456 if X=Y, and to 789 if X&lt;Y.
+In statement 20, the "*" operator acts like a logical AND, and the "+" operator
+acts like a logical OR. In statement 30, A will be a random number between 0 and
+4 with a prescribed probability distribution of: 3% of being 0, 15-3=12% of
+being 1, 56-15=41% of being 2, 98-56=42% of being 3, and 100-98=2% of being 4.
+
+<P>
+Direct Commands
+
+<P>
+All the commands described later can be used as direct commands except the
+following three, they can only be used as direct command and not as part of a
+statement:
+
+<P>
+<STRONG>RUN</STRONG>
+
+<P>
+will start to execute the program starting at the lowest statement number.
+
+<P>
+<STRONG>LIST</STRONG>
+
+<P>
+will print out all the statements in numerical order.
+
+<P>
+<STRONG>LIST 120</STRONG>
+
+<P>
+will print out all the statements in numerical order starting at statement 120.
+
+<P>
+<STRONG>NEW</STRONG>
+
+<P>
+will delete all statements.
+
+<P>
+Abbreviation and blanks
+
+<P>
+You may use blanks freely, except that numbers, command key words, and
+function names cannot have embedded blanks.
+
+<P>
+You may truncate all command keywords and function names and follow
+them by a period.  "P.", "PR.", "PRI.", and "PRIN." all stand for "PRINT".
+Also the word LET in LET command can be omitted.  The "shortest"
+abbreviation for all keywords are as follows:
+<PRE>
+A.=ABS          F.=FOR          GOS.=GOSUB              G.=GOTO
+IF=IF           IN.=INPUT       L.=LIST                 N.=NEW
+N.=NEXT         P.=PRINT        REM=REMARK              R.=RETURN
+R.=RND          R.=RUN          S.=SIZE                 S.=STEP
+S.=STOP         TO=TO
+</PRE>
+<P>
+Implied = LET
+
+<P>
+Statements
+
+<P>
+A statement consists of a statement number of between 1 and
+32767 followed by one or more commands.  Commands in the same statement
+are separated by a semi-colon ";".  "GOTO", "STOP", and "RETURN" commands must
+be the last command in any given statement.
+
+<P>
+Commands
+
+<P>
+Tiny Basic commands are listed below with examples.  Remember that
+commands can be concatenated with semi-colons.  In order to store the
+statement, you must also have a statement number in front of the
+commands.  The statement number and the concatenation are not shown
+in the examples.
+
+<P>
+REM or REMARK command
+
+<P>
+REM anything goes
+
+<P>
+This line will be ignored by TBI.
+
+<P>
+LET command
+
+<P>
+<STRONG>LET A=234-5*6, A=A/2, X=A-100, @(X+9)=A-1</STRONG>
+
+<P>
+will set the variable A to the value of the expression 234-5*6 (i.e., 204), set
+the variable A (again) to the value of the expression A/2 (i.e., 102), set the
+variable X to the value of the expression A-100 (i.e., 2), and then set the
+variable @(11) to 101 (where 11 is the value of the  expression X+9 and 101 is
+the value of the expression A-1).
+
+<P>
+LET U=A&pound;B, V=(A&gt;B)*X+(A&lt;B)*Y
+
+<P>
+will set the variable U to either 1 or 0 depending on whether A is not
+equal to or is equal to B; and set the variable V to either X, Y or 0
+depending on whether A is greater than, less than, or equal to B.
+
+<P>
+PRINT Command
+
+<P>
+<STRONG>PRINT</STRONG>
+
+<P>
+will cause a carriage-return (CR) and a line-feed (LF) on the output
+device.
+
+<P>
+<STRONG>PRINT A*3+1, "ABC 123 !@&pound;", ' CBA '</STRONG>
+
+<P>
+will print the value of the expression A*3+1 (i.e., 307), the string
+of characters "ABC 123 !@&pound;", and the string " CBA ", and then a
+CR-LF.  Note that either single or double quotes can be used to quote
+strings, but pairs must be matched.
+
+<P>
+<STRONG>PRINT A*3+1, "ABC 123 !@&pound;", ' CBA ',</STRONG>
+
+<P>
+will produce the same output as before, except that there is no CR-LF
+after the last item is printed. This enables the program to continue
+printing on the same line with another "PRINT".
+
+<P>
+<STRONG>PRINT A, B, &pound;3, C, D, E, &pound;10, F, G</STRONG>
+
+<P>
+will print the values of A and B in 8 spaces, the values of C, D, and
+E in 3 spaces, and the values of F and G in 10 spaces.  If there are
+not enough spaces specified for a given value to be printed, the value
+will be printed with enough spaces anyway.
+
+<P>
+<STRONG>PRINT $X</STRONG>
+
+<P>
+will XOR 40H with the ascii value of X, allowing printing of some graphic
+characters etc.
+
+<P>
+INPUT Command
+
+<P>
+<STRONG>INPUT A, B</STRONG>
+
+<P>
+When this command is executed, Tiny Basic will print "A:" and wait to
+read in an expression from the input device.  The variable A will be
+set to the value of this expression.  Then "B:" is printed and variable
+B is set to the value of the next expression read from the input device.
+Note that not only numbers, but also expressions can be read as input.
+
+<P>
+<STRONG>INPUT 'WHAT IS THE WEIGHT'A, "AND SIZE"B</STRONG>
+
+<P>
+This is the same as the command above, except the prompt "A:" is replaced by
+"WHAT IS THE WEIGHT:" and the prompt "B:" is replaced by "AND SIZE:".  Again,
+both single and double quotes can be used as long as they are matched.
+
+<P>
+The $ has the save effect as in "PRINT".
+
+<P>
+IF Command
+
+<P>
+IF A&lt;B LET X=3; PRINT 'THIS STRING'
+
+<P>
+will test the value of the expression A&lt;B.  If it is not zero (i.e., if it is
+true), the commands in the rest of this statement will be executed. If the value
+of the expression is zero (i.e., if it is not true), the rest of this statement
+will be skipped over and execution continues at next statement.  Note that the
+word "THEN" is not used.
+
+<P>
+GOTO Command
+
+<P>
+<STRONG>GOTO 120</STRONG>
+
+<P>
+will cause the execution to jump to statement 120.  Note that "GOTO"
+command cannot be followed by a semi-colon and other commands.
+It must be ended with a CR.
+
+<P>
+<STRONG>GOTO A*10+B</STRONG>
+
+<P>
+will cause the execution to jump to a different statement number as
+computed from the value of the expression.
+
+<P>
+GOSUB and RETURN commands
+
+<P>
+<STRONG>GOSUB 120</STRONG>
+
+<P>
+will cause the execution to jump to statement 120.
+
+<P>
+<STRONG>GOSUB A*10+B</STRONG>
+
+<P>
+will cause the execution to jump to different statements as computed from the
+value of the expression A*10+B.
+
+<P>
+<STRONG>RETURN</STRONG>
+
+<P>
+A RETURN command must be the last command in a statement and followed
+by a CR.  When a RETURN command is encountered, it will cause the execution to
+jump back to the command following the most recent GOSUB command.
+
+<P>
+GOSUB can be nested. The depth of nesting is limited only by the stack
+space.
+
+<P>
+FOR and NEXT Commands
+
+<P>
+<STRONG>FOR X=A+1 TO 3*B STEP C-1</STRONG>
+
+<P>
+The variable X is set to the value of the expression A+1.  The values of the
+expressions (not the expressions themselves) 3*B and C-1 are remembered.  The
+name of the variable X, the statement number and the position of this command
+within the statement are also remembered. Execution then continues the normal
+way until a NEXT command is encountered.
+
+<P>
+The STEP can be positive, negative or even zero.  The word STEP and the
+expression following it can be omitted if the desired STEP is +1.
+
+<P>
+<STRONG>NEXT X</STRONG>
+
+<P>
+The name of the variable (X) is checked with that of the most recent FOR command.
+If they do not agree, that FOR is terminated and the next recent FOR is checked,
+etc.  When a match is found, this variable will be set to its current value plus
+the value of the STEP expression saved by the FOR command.  The updated value is
+then compared with the value of the TO expression also saved by the FOR command.
+If this is within the limit, execution will jump back to the command following
+the FOR command.  If this is outside the limit, execution continues following
+the NEXT command itself.
+
+<P>
+FOR can be nested.  The depth of nesting is limited only by the stack
+space.  If a new FOR command with the same control variable as that of an old
+FOR command is encountered, the old FOR will be terminated automatically.
+
+<P>
+STOP Command
+
+<P>
+<STRONG>STOP</STRONG>
+
+<P>
+This command stops the execution of the program and returns control to
+direct commands from the input device.  It can appear many times in a
+program but must be the last command in any given statement.  i.e., it
+cannot be followed by a semi-colon and other commands.
+
+
+<P>
+EX
+
+<P>
+will return you to the Nascom operating system (Nasbug T2 or T4).
+
+<P>
+CW
+
+<P>
+will write the Tiny Basic program to tape using Nasbug cassette format.
+
+<P>
+CR
+
+<P>
+will read the Tiny Basic program from tape using Nasbug cassette format.
+
+<P>
+MC
+
+<P>
+will simply jump execution to a machine language program at 0C50H in the
+Nascom(48 bytes are available here for machine code). Additional notes by DW:
+
+<P>
+If you want to return from the machine code to the next instruction in your Tiny
+Basic program, the first line of machine code at 0C50H must be PUSH DE. Then to
+return to Tiny Basic where the Tiny Basic program left off, end the machine code
+with POP DE, INC DE, JP F911H. For this, the command "MC" can only be the sole
+command or last command on a statement line of Tiny Basic. The stack can be used
+for temporary storage, but previous stack contents and the stack pointer must be
+preserved on exit from the machine code. To transfer variables A to Z between
+machine code and Tiny Basic, the values of these variables in Tiny Basic are
+stored as hex values, two bytes each, starting at 0C83H for A, 0C85H for B etc,
+up to 0CB5H for Z.<BR>
+For example, at 0C50H:
+<PRE>
+   0C50 D5              PUSH DE
+   0C51 21 83 0C        LD HL,0C83H
+   0C54 34              INC (HL)
+   0C55 D1              POP DE
+   0C56 13              INC DE
+   0C57 C3 11 F9        JP 0F911H
+</PRE>
+<P>
+And in Tiny Basic:
+<P>
+   10 A=32000;MC<BR>
+<STRONG>20 PRINT A</STRONG><BR>
+In this example, the "RUN" command in Tiny Basic will increment the variable "A"
+by 1, and so print 32001.
+
+<P>
+Stopping the Execution
+
+<P>
+the execution of program or listing of program can be stopped by
+shift/backspace. Press once to pause (return then continues), or press again to
+restart TB.
+
+
+<P>
+Error Report
+
+<P>
+there are only three error conditions in TINY BASIC.  The statement with the
+error is printed out with a question mark inserted at the point where the error
+is detected.
+
+<P>
+(1) WHAT? means it does not understand you.  Example:
+
+<P>
+<STRONG>WHAT?</STRONG><BR>
+210 P?TINT "THIS"        where PRINT is mistyped
+
+<P>
+<STRONG>WHAT?</STRONG><BR>
+<STRONG>260 LET A=B+3, C=(3+4?, X=4</STRONG>
+
+<P>
+(2) HOW? means it understands you but does not know how to do it.
+
+<P>
+<STRONG>HOW?</STRONG><BR>
+310 LET A=B*C?+2           where B*C is larger than 32767
+
+<P>
+<STRONG>HOW?</STRONG><BR>
+380 GOTO 412?              where 412 does not exist
+
+<P>
+(3) SORRY? means it understands you and knows how to do it but there
+is not enough memory to do it.
+
+<P>
+Error Corrections
+
+<P>
+If you notice an error in typing before you hit the CR, you can delete
+the last character with the backspace key or delete the entire line with
+shift/backspace.
+
+<P>
+To correct a statement, you can retype the statement number and the
+correct commands.  Tiny Basic will replace the old statement with the new one.
+
+<P>
+To delete a statement, type the statement number and a CR only.
+
+<P>
+Verify the corrections by "LIST nnnn". Pressing shift/backspace will halt
+listing.
+
+<P>
+Initialisation
+
+<P>
+The short initialisation program at 0D50H can be altered according to available
+ram.<BR>
+(ARG1) : start of memory for text (set TXTBGN and TXTUNF accordingly)
+STKLMT  : lower limit of stack<BR>
+BSTACK  : upper limit of stack<BR>
+(ARG2)  : upper limit of ram<BR>
+(ARG3)  : number of lines on screen for LIST
+
+</BODY>
+</HTML>

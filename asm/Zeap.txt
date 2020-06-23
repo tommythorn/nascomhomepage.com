@@ -1,0 +1,81 @@
+Zeap (Z80 Editor Assembler Package)
+===================================
+
+ZEAP 2.1 is an integrated editor assembler package for NAS-SYS 1 and
+NAS-SYS 3. The ROM Version is located at D000 .. DFFF. 
+All of the original documentation is lost, but here is what we know about:
+
+cold start:
+-----------
+   ED000 end_of_source_buffer start_of_source_buffer
+                                  default 2000
+e.g.
+   ED000 9000 2000 		; Start ZEAP with buffer from 2000 to 9000
+   				  
+warm start:
+-----------
+   ED003
+   
+A <startline> <endline>		Assemble
+:				Start NASSYS command
+N 				Return to NAS-SYS
+W
+R <start> <increment>           Renumber source code Lines
+V <startline> <endline>		View source code
+Y
+Z <line>			Edit line
+H <count>			Halt listing at <count> lines
+U <startline> <endline>		Write source code to cassette
+				alternative: use NAS-SYS W Command
+				e.g. W 2000 20B7 where 20B7 is Zeap EOF (FREE)
+P
+K <delay>			Set delay after each line for reading from
+                                cassette
+O <optionbyte>			Set assembler options:
+		O 1		Bit 0 = 1 no source listing
+		O 2		Bit 1 = 2 write code to memory
+		O 4		Bit 2 = 4 print output to serial printer
+		O 8		Bit 3 = 8 write assembled program to cassette
+				          in format "LOAD"
+		O 10		Bit 4 = 10
+		O 20		Bit 5 = 20
+		O 40		Bit 6 = 40
+		O 80		Bit 7 = 80 write symbol table
+I <startline> <increment>	Insert line from <startline> with <increment>
+				shift CR (ESC) ends editing. 
+J
+F
+G
+
+Zeap Pseudo Ops:
+================
+ORG 	Origin
+ENT 	Entry Point of Program
+DEFB	define byte(s) e.g. DEFB 10, #10, "1
+        "1 is equivalent to "1"
+DEFS    define storage e.g. DEFS 10
+DEFM    define message e.g. 'HELLO WORLD'
+SKIP
+
+Operators:  +   -
+
+Hex: #00
+
+An Label is only valid with an instruction:
+e.g. 
+START: LD HL,1
+
+Example:
+ ORG #0C80
+START ENT
+ SCAL #5B
+ 
+ 
+assemble into memory: 
+O 2			; set option bit 1 
+A			; assemble
+:			; call NAS-SYS 
+EC80			; Execute assembled program at 0C80
+
+ 
+

@@ -1,0 +1,87 @@
+X-TAL BASIC:
+============
+
+The X-tal Basic Interpreter runs under Nas-sys 1 and Nas-sys 3
+and needs at least 16K memory starting at 1000h. The
+BASIC syntax of this interpreter is very similar to the
+syntax of the Nascom ROM Basic made by Microsoft.
+
+X-tal Basic can be expanded by user written assembly programs. 
+Informations about that are lost. Here is what we know without
+having any original documentation:
+
+Cold Start : E1000
+Warm Start : E1002
+
+Commands:
+ABS		: absolute value
+AND		: logical and
+ASC		: get ASCII value if char
+ATN		: arcus tangens
+CALL p1		: CALL assembly program p1 (address)
+CHR$		: get char string of an ASCII value
+CLEAR		: 
+CLOAD		: cassette load
+CMD$		:
+CSAVE		: cassette save
+CONT		: continue after break
+COS		: cosinus
+DATA		: data statements
+DEF		: define function
+DIM		: dim an array
+EDIT		: edit a line
+END		: end program
+ERR		: get error value
+EXP		: exp function
+FOR		: FOR TO {STEP} NEXT
+FN		: function prefix
+GOSUB		: call a basic subroutine
+GOTO		: goto line
+IF		: IF THEN 
+INCH		: wait for char from kbd
+INPUT		: input a string or value from kbd
+INP		: z80 port input
+INT		: 
+KBD
+LEFT$		: left of a string
+LET		: variable assignment
+LEN		: length of string
+LIST		: list program
+LOG
+MID$
+NAS		: return to NAS-SYS
+NEXT		: FOR TO NEXT
+NEW		: new program (deletes current)
+NOT
+ON
+OR
+OUT		: Z-80 port output
+PEEK		: peek memory
+PI		: 3.141592654
+POKE
+POP		: pop return address from return stack
+POS
+PRINT		: print a constant or variable
+READ		: read elements from the DATA list
+REM		: Remark
+RESTORE		
+RETURN
+RIGHT$
+RND
+RUN
+SIN
+SIZE
+SGN
+SPC(
+SPEED
+SQR
+STEP
+STOP
+STR$
+TAB(
+TAN
+THEN
+TO
+VAL$
+WAIT
+

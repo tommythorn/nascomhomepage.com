@@ -1,0 +1,115 @@
+           COLOSSAL ADVENTURE - JEWELS OF DARKNESS PART 1 (Level 9)
+           --------------------------------------------------------
+
+   (You start outside a small brick building) S, E, NE, S, GET SANDWICHES,
+E, D, N, IN, DROP SANDWICHES, GET KEYS AND LAMP, OUT, S, S, S, OPEN GRATE,
+D, W, LIGHT LAMP, GET CAGE, W, W, W, CATCH BIRD (if you are carrying the
+staff, the bird will fly away), E, E, GET ROD, W, W, W, D, W, WAVE ROD (now
+there is a bridge across the chasm), DROP IT, W, GET DIAMONDS, E, E, N,
+DROP BIRD AND CAGE (the bird chases the snake away), U, S, GET NUGGET, N,
+N, N, N, OFF LAMP, SAY PLUGH (you are teleported from 'Y2' to the brick
+building), DROP KEYS;NUGGET AND DIAMONDS, GET BOTTLE, SAY PLUGH (back at
+'Y2'), LIGHT LAMP, S, D, E, D, FILL BOTTLE, U, W, W, D, E, GET GAZETTE,
+E, DROP GAZETTE, S (using the Gazette you make your way out), W, W, W, W,
+D, EMPTY BOTTLE (the bean grows), U, E, E, NW, GET VASE, SE, E, GET PILLOW,
+W, NE, E, U, E, U, N, OFF LAMP, SAY PLUGH, DROP PILLOW AND VASE (the vase
+lands safely on the pillow - phew!), D, LIGHT LAMP, GET COINS, U, DROP COINS,
+SAY PLUGH, SAY PLOVER (you are transported to 'Plover Room'), NE (you get
+5 points for bringing light to this room), GET PYRAMID, S, SAY PLOVER (back
+at 'Y2'), S, GET BARS, N, OFF LAMP, SAY PLUGH, DROP PYRAMID AND BARS, GET
+SANDWICHES AND KEYS, SAY PLUGH, LIGHT LAMP, S, D, E, D, FILL BOTTLE, U,
+W, W, D, W, W, W, W, D, EMPTY BOTTLE (the bean grows atnd reaches a hole),
+U, E, D, FILL BOTTLE (with oil), U, W, D, CLIMB BEANSTALK, W, N, OIL GATE
+(it swings open), S, DROP BOTTLE, GET EGGS, S, E, U, E, E, NW, W, SW, N,
+NE, GIVE EGGS (the troll (or is it a goblin; can't remember!) leaves), NE,
+NE, E (Lenslok check; fortunate non-JoD do _not_ have to put up with this
+BS!), NE, E, GET SPICES, W, S, SE, S, E, GIVE SANDWICHES (these calm the
+bear), UNLOCK CHAIN, DROP KEYS, GET CHAIN AND BEAR, W, U, U, W, W, SW (the
+troll/goblin is back for more treasure), DROP BEAR (it scares him away),
+SW, SW, D, SE, DROP CHAIN, SE, W, W, D, CLIMB BEANSTALK, W, SAY FEE FIE
+FOE FOO (the eggs return!), GET EGGS, N, N, GET TRIDENT, W, D, SE, DROP
+SPICES, SE, NE, E, N, OPEN CLAM (a pearl rolls out and downwards), D, D,
+GET PEARL, U, U, S, U, E, U, N, OFF LAMP, SAY PLUGH, DROP TRIDENT;PEARL
+AND EGGS, SAY PLUGH, LIGHT LAMP, S, D, W, D, W, W, NW, N, W, OFF LAMP, DROP
+LAMP, E, GET EMERALD, W, GET LAMP, LIGHT LAMP, NW, S, GET CHAIN AND SPICES,
+SE, NE, E, U, E, U, N, OFF LAMP, SAY PLUGH, DROP EMERALD;SPICES AND CHAIN,
+SAY PLUGH, LIGHT LAMP, S, D, W, D, W, W, S (keep trying until you get through),
+E, U, W, FIGHT DRAGON, YES (you knock the hell out of it), GET RUG, E, E,
+U, W, W, W, OFF LAMP, WAIT (for the pirate, if you have not been robbed
+already. Follow the instructions below on getting through 'Same Maze'),
+W, D, N, N, N, OFF LAMP, SAY PLUGH, DROP CHEST AND RUG, SAY PLUGH, LIGHT
+LAMP, S, S, S, GET JEWELLERY, N, U, U, E (keep going east, and if necessary
+walk w and e until you meet the elf), YES... (end of part one!)
+
+
+GENERAL NOTES:
+The Dwarf - the first time you meet him, he throws an axe at you, which
+you in return can pick up and throw at him. If you move outside the central
+dungeon system, he will give up the pursuit. Now, if you play the Jewels
+of Darkness version, which gives you points for not saving your game (ABSURD!!),
+I suggest you use OOPS whenever you meet this guy to avoid him completely,
+so you won't waste moves on picking up the axe.
+
+
+The pirate/Same Maze - At some point he will steal all the treasures you
+are carrying. Note that you _cannot_ find the chest if you have not been
+robbed. If you are almost at the end of pt.1, wait for him in the Western
+Halls of Mists, lights extinguished (to save power! When he has stolen the
+goods, go (from Western H.o.M.): S, E, S, S, U, W, E, S, N, E, N, E, NW,
+GET CHEST + the stolen treasure(s), SE, W, S, D (to Splendid Chamber)
+
+
+Vending Machine - it is in Different Maze. You _can_ drop the coins here
+and have your batteries renewed, BUT it seems that it costs you 5 points
+(really hot on time pressure, are we, Level 9???). The game can be completed
+without this, you just have to run a little faster!
+From West End of Long Passage: S, W, E, U, N, DROP COINS, N, U.
+
+
+  PART II: (You start in a cave) GET KEYS;LAMP;ROD AND DYNAMITE, NE, DROP
+DYNAMITE, SW, SAY BLAST (the dynamite goes off and kills many dwarves. A
+hole opens in the west wall), W, W, W, U, U, U, U, U, E, D, W, W, S, UNLOCK
+ELVES (they happily run off), N, N, UNLOCK ELVES (yet another 100 elves
+are free), S, W, WAVE ROD (a bridge appears across the gap), DROP IT, W,
+W, W, D, D, D, GET ELIXIR, U, U, U, E, E, E, E, E, N, DROP ELIXIR (the skeletons
+turn into living elves!), S, W, W, W, W, W, CLOSE DOOR, D, D, D, GET PENTACLE
+(you MUST turn off the lamp now!), OFF LAMP, U, U, U (the water reaches
+the lava which explodes, but the closed door saves you), U, U, U, U, E,
+E, W, W, U, U, U, THROW PENTACLE (the spider jumps after it), LIGHT LAMP,
+D, D, D, E, N, DROP KEYS, GET ORB, E, E, GET SCEPTRE, S, S, GET CROWN, NW,
+U, U, W, W, W, W, W, U, S, S, S, E, E, U, U, E, E, E, E, E, U, (TA-DAA!!!
+You have saved the elves and their treasure and are now Grand Master!)
+
+
+
+THE TREASURES - there are 15 in part 1:
+Chain             - in Bear Room     - NE, E, SE, S, E from the bridge
+Chest             - by Dead End      - see Same Maze note
+Coins             - in Well          - D from the building
+Diamonds          - west of Fissure  - W, WAVE ROD, W from East Hall 						
+   of Mists
+
+Eggs              - in Giant Room    - CLIMB BEAN, W from West Pit
+Emerald           - in Plover Room   - W, NW, N, W, DROP LAMP, E from 						
+   Bedquilt
+
+Gold Nugget       - in Long Low Room - S from East Hall of Mists
+Jewellery         - in S. Side Chamb.- S from Hall of Montain Kings
+Ming Vase         - in Oriental Room - W, NW from Bedquilt
+Pearl             - in Salty Room    - E, N from Bedquilt
+Platinium Pyramid - in Dark Room     - SAY PLOVER, NE from 'Y2'
+Rug               - under the dragon - W, S, E, U, W, FIGHT DRAGON 						
+   from Bedquilt
+
+Silver Bars       - in Passage        - N from Hall of Mountain Kings
+Spices            - in Small Chamber  - NE, E, NE, E from the bridge
+Trident           - in Magn. Chamber  - CLIMB BEAN, W, N, OIL GATE, N 						
+    from West Pit
+
+MAGIC WORDS:
+Plugh           - from 'Y2' to Brick Building and vice versa
+Plover          - from 'Y2' to Plover Room and vice versa
+XYZZY           - from Debris Room to Brick Building and vice versa
+Fee Fie Foe Foo - brings the eggs back to Giant Room
+
+Jacob Gunness - d.13/5-1990.

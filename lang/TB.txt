@@ -1,0 +1,33 @@
+From: Dennis Wray
+Date: Mon, 31. December 2007 01:01
+Subject: 2k tiny basic
+
+Hi!
+
+I notice you are looking for the 2K Tiny Basic issued by Nascom for T2
+and T4. Well here it is!
+
+I obtained the code in the late 1970s and used it for a home brew Z80
+computer I made at the time. I had to change a line or two here or there
+(like 1F to OD etc) to make it work on my computer. I found it on an old
+cassette of mine in the attic, in Kansas City code! Now I have very
+carefully put everything back as it was in the Nascom. I have also
+constructed a source file with lots of annotation from the original
+version by Wang (this is what Nascom used), together with my own
+annotation. I think you will find it useful! You can compile it with
+TASM, and check for yourself that everything works, if you still have a
+Nascom.  Tiny Basic goes at F800-FFFF, but there is a little
+initialisation program you need to run first that you will find at 0D50
+in the source file. As well as the source file, I have attached the nas
+file for the Tiny Basic from F800-FFFF . Please let me know if you have
+any problems with getting it to work. Note though it is only for TBug
+(T2 or T4, should work with both), not NasSys.
+
+I checked it with nasbugT2 and nasbugT4 in Vnascom – it worked fine.
+
+I thought I would send you the rom file as well, as that will be better
+than the nas file. The reason for this is that I made the nas file using
+the Basic programs on your website, but unfortunately that puts return
+as 0D instead of 1F etc, which is no good for T2 and T4. So I suggest
+you use the rom file on your website rather than the nas file.
+

@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>The Nascom Home Page</title>
+   <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body background="pics/nas-bg21.gif">
+<table>
+<tbody><tr>
+<td><img src="pics/nascom-logo.gif" height="32" width="77"></td>
+
+<td align="right" valign="CENTER">
+
+<h1>The Nascom Home Page</h1>
+Last update: 2020-06-20 TT</td>
+
+</tr>
+</tbody></table>
+
+<table width="100%">
+<tbody><tr>
+<td align="left" valign="top">
+    <font face="Arial,Helvetica"><a href="#News">News</a></font>
+<br><font face="Arial,Helvetica"><a href="#Overview">Overview</a></font>
+<br><font face="Arial,Helvetica"><a href="#VirtualNascom">Virtual Nascom</a></font>
+<br><font face="Arial,Helvetica"><a href="#Gallery">Gallery</a></font>
+<br><font face="Arial,Helvetica"><a href="#TheNascomRepository">Nascom Repository</a></font>
+<br><font face="Arial,Helvetica"><a href="#Pictures">Pictures</a></font>
+<br><font face="Arial,Helvetica"><a href="#Links">Links</a></font>
+<br><font face="Arial,Helvetica"><a href="#Mirrors">Mirrors</a></font>
+</td>
+</tr>
+</tbody></table>
+
+<a name="News"><h1>News</h1></a>
+<ul>
+<li>2020-06-20<br>
+
+  Freek Oost contributed Nascom 1 schematics in A3 format.
+
+<li>2020-06-20<br>
+
+  Joe Lyman contributed the "Nascom ROM Basic Disassembled" (basic
+  v4.7) article by Carl Lloyd-Parker, taken from 80-BUS magazine
+  issues 2-3 through 3-3 (7 part series.)
+
+<li>2020-06-20<br>
+
+  Many thanks to Morten L&oslash;hre and Gareth Pitchford, who both
+  pointed out that the previously claimed "Colossal Adventure" was actually
+  <i>not</i> the Level 9 version.  Morten further found the actual
+  Level 9 which been added below (as Avdentr.NAS).<p>
+
+  Morten:<br>
+  <i>
+  The file has been kindly provided by Jimmy Maher over at The Digital
+  Antiquarian. He wrote an article on the Nascom Colossal Adventure
+  from Level 9 (<a href="https://www.filfre.net/2012/10/level-9/">https://www.filfre.net/2012/10/level-9/</a>),
+  and I noticed he had screenshots of the game. <p>
+
+  ... <p>
+
+  In particular, I noticed the entry "Colossal Adventure 16K and 32K
+  version (Level 9)." and the files therein. I knew very well the Level
+  9 Colossal Adventure, but I was not that familiar with Level 9's early
+  work on the Nascom. Assuming that the "32K" version was something
+  Level 9 did early on, predating the work on other micros, I started to
+  disassemble the file to understand how this differed from what I had
+  seen on C64, the BBC etc. After hacking together a z80 trace tool I
+  managed to re-engineer the text compression routines in C (the text
+  compression is based on Huffman variable bit-encoding) and I could
+  list the various texts in the game. Only to find the text "Adventure
+  32k copyright (c) 1982 Michael J. Evis" (message #200 of the message
+  texts). A further look revealed that you can provoke this text in-game
+  by entering "AUTH" for Author. <p>
+
+  Just wanted to let you know that you should consider changing the
+  text on your page to credit Mr. Evis instead. A qualified guess is
+  that the "32K" code is similar to what was released for the ZX
+  Spectrum a year later
+  (<a href="http://www.worldofspectrum.org/infoseekid.cgi?id=0005907">worldofspectrum</a>). The
+  Spectrum version has earned a place in the
+  <a href="http://advent.jenandcal.familyds.org/#EVIS0350">Adventure Family Tree</a>. <p>
+  </i>
+
+  Garath:<br>
+  <i>
+    It is actually a completely different port of the mainframe game,
+    produced by Michael J. Evis/Syrtis Software in early 1981;
+    pre-dating the Level 9 version by at least a few months.  see, my
+    page about the game
+    here... <a href="http://8bitag.com/info/syrtis-adventure.html">http://8bitag.com/info/syrtis-adventure.html</a>.
+
+    Syrtis Adventure, as I call it to avoid all the issues with so
+    many games with the same name, seems to have been first released
+    in 1981 as a 16K game for Nascom, before being produced as an
+    expanded version (more accurately aping the mainframe text) in
+    1982. Again, extensive references to all these versions are on my
+    website. The game was later ported to the Spectrum.
+
+    This matches the information your user extracted from the 32K file.
+
+    It could still be Level 9's initial version of Colossal Adventure.
+    I hope it is... as the 16K version of that game does not exist in
+    any form, despite being produced for multiple systems.
+    See... <a href="http://8bitag.com/info/level-9.html">http://8bitag.com/info/level-9.html</a>.
+</i><p>
+
+  Unfortunately, we are still seeking the lost 16K version.<p>
+
+  We have finally updated the reference and attribution.  Note, this
+  means we have the following similar, but different programs:
+  <ul>
+    <li>Two versions of the original adventure by Syrtis Software (Michael J. Evis.)
+    <li>Colossal Adventure by Level 9 (32K version)
+    <li>Dungeon Adventure by Level 9
+    <li>Adventure Quest by Level 9
+  </ul><p>
+
+<li>2018-04-02<br>
+  Removed many dead links.<p>
+
+  Added a (long-overdue) fantastic contribution from Thorleif Bundgaard:<p>
+
+  "Im searching for an old NASCOM Dungeon like game, where the task is
+   to stop a bomb from exploding, but didn't find it. <p>
+
+   I got into contact with a guy 'Anders Hejlsberg' later to be one of
+   the founders of BORLAND.  He had made the first real compiler for
+   the NASCOM, called 'Blue Label Pascal'.  In 1984 Anders gave me the
+   source for <a href="asm/Math48-Floating-Point-Package.zip">the floating
+   point routines</a> used in this Pascal.  The special thing about
+   this code is that it keeps all its computations on the stack, so
+   you dont have to set aside some RAM areas.  And the code is
+   completely relocatable. <p>
+
+   I also have a printed description that Anders made (In Danish),
+   Most is just CALL descriptions, so I guess that anyone speaking
+   English will understand our language well enough, however I also
+   did a translation."
+</li>
+
+<li>2017-03-05<br>
+  From Carl Lloyd-Parker comes a fixed version of <a href="mbasic/nimbot.nas">NimBot</a>: <p>
+
+  <i>
+  I found the copy of NimBot on your web, and noticed that it has
+  incorrect graphics.  This is very understandable, considering it
+  was typed in from a printed magazine. <p>
+
+  And due to Nascom BASIC having a bug with LIST expanding tokens
+  within strings, this makes guessing the correct graphic for the
+  garbage almost impossible! <p>
+
+  When C&amp;VG asked for permission to publish NimBot, they didn't
+  ask for any help with the graphics - they just printed it.  I laughed
+  when I saw the copy : ``Have fun typing that in!" <p>
+
+  Recently, I was salvaging data from my ancient Nascom floppy disks,
+  which wasn't easy; as my disk controller died about 20 years ago. <p>
+
+  I wrote a disk reader for my Tatung Einstein, and managed to read most
+  of the disks.  One of the disks had a NimBot file, but it was corrupt.
+  Luckily, the sector with the graphics was intact, so I combined it
+  with the copy from your web to recreate the original." <p>
+
+  </i>
+
+  Thank you to Carl for the update and the backstory (I appologies for
+  taking two month to convert the NAS to CAS).
+
+<li>2014-10-06<br>
+  Stefano Bodrato contributed his <a href="tools/cas2zx.c">cas2zx</a> tool to
+  convert cas files for the ZX Spectrum and a
+  <a href="emu/virtual_nascom-20.zip">Windows 7 build of Virtual Nascom</a>.
+
+<li>2014-08-04<br>
+  Peter vas Es contributed <a href="games/astrotraps.cas">Astrotraps</a> by Deep
+  Thought Software (1982). E1000
+
+<li>2013-10-12<br>
+  Hans Rietveld kindly contributed the following pictures and manual to the nascom
+  homepage:
+  <ul>
+
+  <li>The original manual of the <a href="pdf/NASCOM DISPLAY TESTER MK III.pdf">NASCOM DISPLAY TESTER MK III</a>
+      and pics <a href="pics/NASCOM DISPLAY TESTER MK III a.jpg">a</a> and
+      <a href="pics/NASCOM DISPLAY TESTER MK III b.jpg">b</a>.
+
+  <li>A <a href="pics/Nascom Gebruikers Club Floppydisk Interface - a.jpg">picture</a> of
+      <a href="pics/Nascom Gebruikers Club Floppydisk Interface - b.jpg">floppydisk
+      interface</a>, designed for the former dutch "Nascom Gebruikers Club" and build and
+      distribute for the members.
+      <p>
+      A group of members has written a DOS and CP/M 2.2 for this
+      interface.  The interface was switchable for 5 and 8 inch
+      drives.  The <a href="pics/Nascom Gebruikers Club Floppydisk Interface Prototype - a.jpg">picture</a>
+      of the <a href="pics/Nascom Gebruikers Club Floppydisk Interface Prototype - b.jpg">prototype board</a>
+      for this interface and an eprom programmer.
+  </ul>
+
+<li>2013-10-12<br>
+
+  Bob Young kindly provided a variant of
+  the <a href="mbasic/SsTrek.cas">Star Trek game</a>,
+  with <a href="mbasic/SsTrek-instructions.cas">runnable
+  instructions</a> or as
+  a <a href="mbasic/SsTrek-instructions.txt">text file</a>: <p>
+
+  <i>
+  "The story,
+  <p>
+  A friend of mine (Mick Waters) persuaded me to buy a Nascom 2 (I was
+  thinking about a CompuKit UK 101, a close shave!) as he has already
+  bought one and said it was much better than the CompuKit. Well while
+  I was building mine we purchased this book and spend an entire night
+  typing it into his 16K Nascom 2, only to find that it wouldn't run
+  as there wasn't enough RAM.
+  <p>
+  Needless to say we quickly borrowed my 4116 chips from my N2 kit (I
+  was quite nervous) to up his 16K to get 32K so we could run the game
+  J (at least we were able to save it).
+  <p>
+  Some years later I upgraded the N2 to a CP/M system, courtesy of a
+  Gemini Disk card and merrily converted my favourite game to
+  CP/M. But things moved on and I bought more computers but didn't
+  stop using my CP/M Nascom 2/Gemini hybrid system until I bought my
+  first PC (around 1994).
+  <p>
+  However thanks to CP/M emulators and vnascom I have been able to
+  re-convert this game back into the Nascom 2 MBASIC version. I can't
+  guarantee that I haven't made any typos in this version given that
+  it has been ported to and from CP/M but it seems to run just fine in
+  vnascom. I hope that it is of some interest and include it here." </i>
+</li>
+
+<li>2012-12-03<br>
+
+  <strong>Gone to another Smith - Howard has an nice write up of
+  where it ended up:</strong> <a href="http://nascom-uk.blogspot.co.uk/2012/12/ken-smiths-nascom-2.html">Ken Smith's Nascom 2</a><p>
+  <i>Ken Smith writes us that "<strong>I have available a nascom2
+computer plus 48k memory card plus graphics card plus PIO card plus
+twin 51/4 floppies with card plus power supply. Seems to be working
+ok. Free gift to enthusiast.<br> Ken Smith Wimborne, Dorset</strong>"</i>
+</li>
+
+<li>2012-04-12<br>
+  Howard Smith contributes a link to his Nascom site,
+  <a href="http://nascom-uk.blogspot.com">http://nascom-uk.blogspot.com</a>.
+  We wish him success in bringing up his old machine.
+</li>
+<li>2012-03-03<br>
+  Graham R Wilson sends us his never published book <a href="pdf/Guide_to_NAS-SYS.pdf">'A Guide to NAS-SYS'</a>. It is the follower of his book 'Machine Code Programming for the Nascom 1 & 2'.
+  </li>
+<li>2011-12-28<br>
+  Rebecca Yates contributed the <a href="pdf/Dungeon-Quest.pdf">manual
+  for Dungeon Quest</a> and the game <a href="mbasic/DQUEST.CAS"> Dungeon Quest</a>.
+</li>
+
+<li>2011-12-25<br>
+  <img src="pics/witchzzappp1.jpg"height="288" width="376"><br>
+  <a href="http://eirebecky.wordpress.com/2011/06/15/keys-of-kraal/">Rebecca
+  Yates</a> contributed the <a href="pdf/Keys of Kraal.pdf">manual
+  for Keys of Kraal</a> and the game <a href="mbasic/keyskraal.cas"> Keys of Kraal </a>.
+</li>
+
+<li>2011-05-10<br>
+Hans Rietveld wrote us with a
+<a href="emu/contrib/Nascom.zip">front-end for Vnascom</a>.</li>
+</ul>
+The <a href="oldnews.html">Old News</a> have move to a separate page.
+
+
+<a name="Overview"><h1>Overview</h1></a>
+
+Hi and welcome to the Nascom home page.
+
+
+<p>The Nascom (1 and 2) were computer kits from the UK based Nasco,
+later Lucas, around the Z80 processor, sold in the early 1980s. This
+remarkable piece of hardware contained:</p>
+
+<ul>
+<li>a <i>real</i> keyboard (<a href="pics/NASKBD.JPG">picture
+of the keyboard [141 KB]</a>),</li>
+<li>a 4 MHz Z80A processor,</li>
+<li>1 KB static RAM (extendable to 8 KB, or 16 KB with more work),</li>
+<li>2 KB Monitor (NAS-SYS 1),</li>
+<li>8 KB Microsoft Basic,</li>
+<li>a 48x16 video interface, to attach to a standard TV,</li>
+<li>serial in/out, selectable between cassette tape, RS-232, or current loop
+20 mA for teletype writers (<a href="pics/NASBACK.JPG">picture
+of the I/O connectors [163 KB]</a>).</li>
+</ul>
+The Nascom computers were very useful for learning about microcomputer hardware and,
+through complete documentation, also learning system programming. All electronic
+schematics, datasheets of special components and the complete source code
+of the monitor were available from the beginning. <p>
+
+The purpose of this page is to gather as many Nascom resources as possible
+and to make them available. If you have Nascom resources you would like
+to make available, please do not hesitate to send them to
+<ul>
+<li><a href="mailto:nascomhomepage_AT_thorn.ws">Tommy Thorn </a> (change "_AT_" to "@") or</li>
+<li><a href="mailto:nascom_AT_nascomhomepage.com">Constantin Olbrich </a>(change "_AT_" to "@")
+, and they will find their way to this page.  Don't be shy about
+including auxiliary details, such as the story behind the game,
+manual, etc.</li>
+</ul>
+You can support the Nascom Repository with:
+<ul>
+<li>binary images</li>
+<li>original documents OCR'ed or simply scanned</li>
+<li>sampled tapes: 22 kHz, 8-bit, mono</li>
+</ul>
+
+The Nascom Respository is looking for:
+<ul>
+<li> A JavaScript Nascom emulator, for use on this site </li>
+<li> The "Keys of Kraal" game </li>
+<li> OCR'ed versions of the INMC newsletter, 80 Bus Journals or other Nascom magazines.</li>
+<li> NAS-DOS 2</li>
+<li> NAS-PEN disk version</li>
+<li> Mushroom 4K Basic.</li>
+<li> ZEAP 2.2 Assembler disk version.</li>
+<li> Nas-Net Manual and Software.</li>
+<li> Hi-Soft Nasnem Disassembler.</li>
+<li> any Nascom software or documents not presented here!</li>
+</ul>
+
+<h1><a name="VirtualNascom"></a>Virtual Nascom and VNascom</h1>
+There are many Nascom emulators available today, but at the genesis of this web site
+there was none. Need thus begat Virtual Nascom, a fully portable Nascom emulator
+distributed in source form. The primary site is
+<a href="http://repo.or.cz/w/virtual-nascom.git">the Virtual Nascom git repository</a>. <p>
+
+VNascom is an alternatively emulator written by Constantin for Windows. The latest version is
+<a href="emu/vnascom-20080203.zip">Virtual Nascom Version 3.1 for DOS/Win9x/ME</a>.
+<br>The current version has bit level correct screen output and complete
+keyboard emulation. It run all the programs We've tried, which includes
+most games available. New in Version 3.1: CP/M Version 2.2 runs on
+standard Nascom screen as well as on the AVC.<p>
+Hans Rietveld contributed a <a href="emu/contrib/Nascom.zip">front-end
+for Vnascom</a>. <p>
+
+A new  <a href="java/Distribution.zip"> Nascom 2/3 emulator version 1.2 in Java </a> written by Richard Espley is available.
+<h2>
+<a name="Gallery"></a>VNascom Gallery</h2>
+
+  <table border="1" cellpadding="2" cellspacing="2" width="500">
+   <tbody><tr>
+    <td colspan="2">
+     <p class="plain_s_bl">PACMAN</p>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <a href="games/pacman.nas"><img src="screen/PACMAN.GIF" border="0"></a>
+    </td>
+    <td valign="top"><p class="plain_xs_bl">
+     One of the best Nascom games.
+    </p></td>
+   </tr>
+  </tbody></table>
+
+  <table border="1" cellpadding="2" cellspacing="2" width="500">
+   <tbody><tr>
+    <td colspan="2">
+     <p class="plain_s_bl">GALAXY ATTACK</p>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <a href="games/GALAXY.NAS"><img src="screen/GALAXY.GIF" border="0"></a>
+    </td>
+    <td valign="top"><p class="plain_xs_bl">
+     1981 by South East London Software.
+    </p></td>
+   </tr>
+  </tbody></table>
+
+  <table border="1" cellpadding="2" cellspacing="2" width="500">
+   <tbody><tr>
+    <td colspan="2">
+     <p class="plain_s_bl">BLUE LABEL SOFTWARE PASCAL</p>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <a href="lang/Blspas.nas"><img src="screen/BLSPAS.GIF" border="0"></a>
+    </td>
+    <td valign="top"><p class="plain_xs_bl">
+     1981 by Blue Label Software. If there are any software classics for Nascoms, this is one of the bests.
+    </p></td>
+   </tr>
+  </tbody></table>
+
+  <table border="1" cellpadding="2" cellspacing="2" width="500">
+   <tbody><tr>
+    <td colspan="2">
+     <p class="plain_s_bl">Digital Research CP/M 2.2 on Nascom 3</p>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <a href="emu/vnascom-20080203.zip"><img src="screen/CPMV22.GIF" border="0"></a>
+    </td>
+    <td valign="top"><p class="plain_xs_bl">
+     CP/M 2.2 on a Nascom 3 with screen editing 1982.
+    </p></td>
+   </tr>
+  </tbody></table>
+
+
+<h2>
+<a name="TheNascomRepository"></a>The Nascom Repository</h2>
+A Nascom file (extention *.NAS) can be uploaded with the "L" monitor
+command. Your Nascom creates such a file with a connected PC over the serial
+line with the following two commands at the Nas-Sys prompt:
+<ul>
+<li>X ..................... enable RS232 output</li>
+<li>T aaaa bbbb .... creates a listing from aaaa to bbbb for in format "L".</li>
+</ul>
+Your PC Terminal Program needs the following communication parameters:
+1200 7/E/1 as 1200 Baud, one stop bit even Parity and 7 data bits.
+
+<p>
+Mike Fox offers this tip on
+<b><a href="tools/Reading%20NAS%20files%20into%20Nascom.txt.zip">How to
+automatically Read NAS files into a Nascom</a></b> (open the linked
+zip file for more information).</p>
+
+
+<p>
+<i>Utilities for the PC written in Microsoft QBASIC (MS-DOS, Win9x,
+Windows NT):</i>
+</p><ul>
+<li><a href="tools/NAS2ROM.BAS">NAS2ROM.BAS</a> Converts a NAS file to ROM file (binary image) for creating an EPROM.</li>
+<li><a href="tools/ROM2NAS.BAS">ROM2NAS.BAS</a> Converts a ROM file to a NAS file for uploading over the serial line to a NASCOM</li>
+<li><a href="tools/CAS2NAS.BAS">CAS2NAS.BAS</a> Converts a CAS file to a NAS file.</li>
+<li><a href="tools/NAS2CAS.BAS">NAS2CAS.BAS</a> Converts a NAS file to a CAS file.</li>
+</ul>
+<i>Unix utilities</i>
+<ul>
+<li><a href="tools/NAS2ROM.C">nas2rom.c</a> Converts a NAS file to to ROM file (binary image) for creating an EPROM.</li>
+</ul>
+
+<i>Nascom Emulators:</i>
+<ul>
+<li><a href="emu/vnascom-20080203.zip">Nascom 1 and Nascom 2 and Nascom 3 Emulator version 3.1</a>
+  for DOS/Win9x/ME with audio cassette input and output.
+Read and write original Nascom cassettes with a soundcard! Ready to run NAS-DOS 1 on floppy disk images.</li>
+<li><a href="java/Distribution.zip">Nascom 2/3 Emulator version 1.2 in Java </a>by Richard Espley.</li>
+<li><a href="emu/VirtualNascom-1.0.1.tar.gz">Nascom 2 Emulator version 1.0.1</a> for UNIX with source code.</li>
+<li><a href="emu/zxnascom_2_0.zip">NASCOM BASIC emulator for the ZX Spectrum 48K.</a></li>
+</ul>
+<i>Nascom CP/M disk images and ROM's:</i>
+<ul>
+<li><a href="rom/cpmboot.nas">Nascom CP/M boot loader ROM.</a></li>
+</ul>
+
+<i>Nasdos & CP/M Disk Images:</i>
+<ul>
+<li><a href="dsk/UTD1066.ZIP">NAS-DOS utility disk.</a></li>
+<li><a href="dsk/avc-demo.zip">AVC demo disk. Type ]E:RUN ME to start.</a></li>
+<li><a href="dsk/nas-sem.zip">NAS-Sembler 1.5 (Lucas Logic 1982) Assembler distribution disk.</a></li>
+<li><a href="dsk/divtools.zip">Nasdos related tools and toolkits. Type ]E:MMENU to start.</a></li>
+<li><a href="dsk/asteroid.zip">Game Asteroids by Richard C. Espley 1985. Type ]D: to start (check out the RESET key!).</a></li>
+<li><a href="dsk/DOSADV.ZIP">Game Nascom Disk Adventure by Richard C. Espley 1983. Type ]E:OINIT to start (check out the RESET key!).</a></li>
+<li><a href="dsk/CPMGAMES.zip">CP/M Games compilation for 80 char's mode.</a></li>
+</ul>
+
+<i>Nasdos Applications:</i>
+<ul>
+<li><a href="tools/xtal31gd.zip">X-tal Nascom Enhanced GBASIC Vn 3.1D (1982).</a></li>
+</ul>
+
+<i>D-DOS (by D. R. Hunt):</i>
+<ul>
+<li><a href="pdf/D-DOS.PDF">D-DOS manual</a></li>
+<li><a href="pdf/D-DOS0001.PDF">D-DOS assembly listing</a></li>
+<li><a href="pdf/D-DOS0002.PDF">D-DOS hardware information</a></li>
+</ul>
+
+
+
+<a name="Magazines"><i>Nascom magazines:</i></a>
+<ul>
+<li><a href="pdf/INMAC%20News%20Issue1.zip">INMAC News Issue 1.</a></li>
+<li><a href="pdf/INMAC%20News%20Issue2.zip">INMAC News Issue 2.</a></li>
+<li><a href="pdf/INMAC%20News%20Issue3.zip">INMAC News Issue 3.</a></li>
+<li><a href="pdf/INMAC%20News%20Issue5.zip">INMAC News Issue 5.</a></li>
+<li><a href="pdf/80issue1.zip">INMC 80 NEWS issue 1 (June .. August 1980).</a></li>
+<li><a href="pdf/INMC_80_Issue_2.pdf">INMC 80 NEWS issue 2 (September 1980 .. Januar 1981).</a></li>
+<li><a href="pdf/MPV01N01.zip">Micropower Volume 1 Number 1 (August 1981).</a></li>
+<li><a href="pdf/MPV01N02.zip">Micropower Volume 1 Number 2 (September 1981).</a></li>
+<li><a href="pdf/MPV01N03.zip">Micropower Volume 1 Number 3 (November 1981).</a></li>
+<li><a href="pdf/MPV01N04.zip">Micropower Volume 1 Number 4 (December 1981).</a></li>
+<li><a href="pdf/MPV02N01.zip">Micropower Volume 2 Number 1 (February 1982).</a></li>
+<li><a href="pdf/MPV02N02.zip">Micropower Volume 2 Number 2 (April 1982).</a></li>
+<li><a href="pdf/inmc.pdf">Best of INMC News (August 1981).</a>
+</li>
+<li> Here a gem, courtesy of Paul Wiliams and John Hunt. A couple
+of short hardware articles from Wireless World 1977 - 1979, by Mr C. D.
+Shelton and NASCO Ltd on microcomputer design. The hardware in these is
+identical to Nascom 1, and it arrears that somewhere in the
+business/design setup that Mr Shelton had an arrangement to publish the
+Nascom 1 design.
+<p>  Interesting though that part 4 came out in Feb 1978, as
+  this puts part 1 in about Nov 1977 - so it seems the design was being
+  published at about the same time that the Nascom 1 was being first produced?
+  Open source doesn't seem to be a modern invention then. </p>
+<p>
+  Paul provided parts 4 &amp; 5 of the series, while John provided the
+  remainder and converted Paul's to space saving PNG format.  Thank you both.
+
+  </p><ul>
+
+  <li>Nov 77:
+  <a href="pics/wireless-world/1-intro1.png">1</a>,
+  <a href="pics/wireless-world/1-intro2.png">2</a>,
+  <a href="pics/wireless-world/1-intro3.png">3</a>,
+  <a href="pics/wireless-world/1-intro4.png">4</a>.
+  </li>
+
+  <li>Dec 77:
+  <a href="pics/wireless-world/2-practical1.png">1</a>,
+  <a href="pics/wireless-world/2-practical2.png">2</a>,
+  <a href="pics/wireless-world/2-practical3.png">3</a>,
+  <a href="pics/wireless-world/2-practical4.png">4</a>,
+  <a href="pics/wireless-world/2-practical5.png">5</a>.
+  </li>
+
+  <li>Jan 78:
+  <a href="pics/wireless-world/3-realise1.png">1</a>,
+  <a href="pics/wireless-world/3-realise2.png">2</a>,
+  <a href="pics/wireless-world/3-realise3.png">3</a>.
+  </li>
+
+  <li>Feb 78:
+  <a href="pics/wireless-world/4-uart1.png">1</a>,
+  <a href="pics/wireless-world/4-uart2.png">2</a>.
+  </li>
+
+  <li>Aug 78:
+  <a href="pics/wireless-world/5-vdu1.png">1</a>,
+  <a href="pics/wireless-world/5-vdu2.png">2</a>,
+  <a href="pics/wireless-world/5-vdu3.png">3</a>.
+  </li>
+
+  <li>Jan 79:
+  <a href="pics/wireless-world/6-z80-1.png">1</a>,
+  <a href="pics/wireless-world/6-z80-2.png">2</a>,
+  <a href="pics/wireless-world/6-z80-3.png">3</a>,
+  <a href="pics/wireless-world/6-z80-4.png">4</a>,
+  <a href="pics/wireless-world/6-z80-5.png">5</a>.
+  </li>
+  </ul></li>
+
+
+<li>From C&amp;VG, 3 type-ins games for Nascom-2
+    (Missing pages are full-page advertisements):
+<a href="mbasic/The Invaders.cas">"The Invaders"</a>
+  (<a href="pdf/TheInvaders-32.jpg">1</a>,
+  <a href="pdf/TheInvaders-33.jpg">2</a>,
+  <a href="pdf/TheInvaders-34.jpg">3</a>,
+  <a href="pdf/TheInvaders-35.jpg">4</a>),
+typed in by Lex Landa &mdash; thanks,
+"Nimbot" (
+<a href="pdf/Nimbot-30.jpg">1</a>,
+<a href="pdf/Nimbot-31.jpg">2</a>,
+<a href="pdf/Nimbot-33.jpg">3</a>,
+<a href="pdf/Nimbot-34.jpg">4</a>,
+<a href="pdf/Nimbot-36.jpg">5</a>), and
+"Anti Grav Flier" (
+<a href="pdf/AntiGravFlier-52.jpg">1</a>,
+<a href="pdf/AntiGravFlier-53.jpg">2</a>,
+<a href="pdf/AntiGravFlier-57.jpg">3</a>).</li>
+
+<li><a href="pics/Practical Computer TRS-80 to Nascom Nov 1981.jpg">Practical
+Computer Nov 1981: TRS-80 to Nascom</a></li>
+
+<li><a href="pdf/basic_decomp_reflow.pdf">"Nascom ROM Basic Disassembled" (basic v4.7) article by Carl Lloyd-Parker, taken from 80-BUS magazine issues 2-3 through 3-3 (7 part series.)</a></li>
+
+</ul>
+
+<i>Nascom Manuals and Books:</i>
+<ul>
+<li><a href="pdf/Guide_to_NAS-SYS.pdf">'A Guide to NAS-SYS' by Graham R Wilson</a></li>
+<li><a href="pdf/Nascom%20Basic%20Book%201.PDF">Nascom Basic Book I</a></li>
+<li><a href="pdf/nasproginfo.pdf">Nascom programs &amp; information</a></li>
+<li><a href="pdf/Gener-80%20V1.1.pdf">Gener-80 V1.1 manual</a></li>
+<li><a href="pdf/Kenilworth_case.pdf">Nascom 2 Kenilworth case manual</a></li>
+<li><a href="pdf/polydos.pdf">POLYDOS complete manual set (six volumes).</a></li>
+<li><a href="pdf/cpm22v32.pdf">Lucas CP/M 2.2 V3.2 manual.</a></li>
+<li><a href="pdf/Z2MAN.zip">Z2 Editor/Assembler manual (1980).</a></li>
+<li><a href="pdf/pgc.pdf">Programmable Character Generator P.C.G.(BITS &amp; P.C.s).</a></li>
+<li><a href="pdf/xbasic31.zip">Nascom Enhanced Basic 3.1T manual.</a></li>
+<li><a href="pdf/hs12kbas.pdf">Hisoft 12K Basic manual.</a></li>
+<li><a href="pdf/64KBPG.zip">Manual of the 64KB dynamic RAM card with programmable graphics.(New!)</a></li>
+<li><a href="pdf/Xtalman.zip">XTAL BASIC V2.2 Manual. (New OCR'ed version!)</a></li>
+<li><a href="pdf/Xtalhack.zip">XTAL BASIC Hack's Guide. (New OCR'ed version!)</a></li>
+<li><a href="pdf/Compass.pdf">Level 9 Comression Assembler Manual 1.3.</a></li>
+<li><a href="pdf/nassem.zip">NAS-SEMBLER Nascom Assembler Manual.</a></li>
+<li><a href="pdf/mcnas12.zip">Machine Code Programming for the Nascom 1 and 2.</a></li>
+<li><a href="pdf/avcsman.zip">AVC Software Manual Model B.</a></li>
+<li><a href="pdf/avchman.zip">AVC Hardware Manual Model B.</a></li>
+<li><a href="pdf/bbug.zip">B-BUG NASCOM 1 Monitor.</a></li>
+<li><a href="pdf/N1HM.PDF">NASCOM 1 Construction Notes.</a></li>
+<li><a href="pdf/N1SM.PDF">NASCOM 1 Software Notes.</a></li>
+<li><a href="pdf/zeap.pdf">ZEAP 2.0 Assembler Manual written by Paul Chapman.</a></li>
+<li><a href="pdf/nasbus.pdf">Nascom 2 Manual: NASBUS specification.</a></li>
+<li><a href="pdf/constrct.pdf">Nascom 2 Manual: Construction Manual.</a></li>
+<li><a href="pdf/started.pdf">Nascom 2 Manual: Getting started</a></li>
+<li><a href="pdf/hardman.pdf">Nascom 2 Manual: Hardware Manual.</a></li>
+<li><a href="pdf/g808.doc">2708/2716 EPROM programmer Gemini G808 manual</a></li>
+<li><a href="pdf/nasmon1.pdf">Hisoft Nasmon manual</a></li>
+<li><a href="pdf/DEBUG.TXT">Super Debug 3.1 manual</a></li>
+<li><a href="pdf/NAS-DIS.pdf">NAS-DIS Disassembler manual</a></li>
+<li><a href="mon/nassys1.txt">Nas-sys 1 manual</a></li>
+<li><a href="pdf/blspas.pdf">BLS Pascal 1.2 manuals</a></li>
+<li><a href="pdf/appr.pdf">Nascom Approved Products Flyer</a></li>
+<li><a href="pdf/nsysdemo.pdf">Nas-sys 1 sample programs</a></li>
+<li><a href="pdf/pendisk.PDF">Naspen Disk manual</a></li>
+<li><a href="pdf/3a.PDF">Nascom 3A power supply manual</a></li>
+<li><a href="lang/Hpascal.txt">Hisoft Pascal 4T Manual</a></li>
+<li><a href="pdf/Basic.pdf">Nascom ROM Basic Manual</a></li>
+<li><a href="pdf/naspen.pdf">Naspen Firmware Manual</a></li>
+<li><a href="pdf/Nassys3.pdf">Nassys 3 Manual</a></li>
+<li><a href="pdf/Iomanual.pdf">Nascom 2 I/O Manual</a></li>
+<li><a href="pdf/nasdos.pdf">NASDOS Manual</a></li>
+<li><a href="pdf/avc.pdf">AVC Video Card Terminal Software Manual</a></li>
+<li><a href="pdf/cpm.PDF">CP/M 2.2 Rev. 2.1 Manual</a></li>
+<li><a href="pdf/Ramb.pdf">RAM-B Memory Card (48KB) Manual</a></li>
+<li><a href="pdf/floppy.pdf">Floppy Controller &amp; Drive Manual</a></li>
+<li><a href="pdf/vt.pdf">V &amp; T Assembler by John Parry</a></li>
+<li><a href="pdf/zeap-1.1.scan.pdf">ZEAP 1.1 scanned docs </a></li>
+<li><a href="pdf/basic8Ktape.pdf">8K tape-Basic scanned docs <b>in french</b></a></li>
+<li><a href="pdf/TDLDOC.pdf">TDL 12K Basic</a></li>
+<li><a href="pdf/mdcr.pdf">Philips MDCR technical manual.</a></li>
+<li><a href="pdf/XBASIC.pdf">XBASIC manual.</a></li>
+<li><a href="pdf/HOBBIT_V2_MANUAL.pdf">HOBBIT V2 manual.</a></li>
+<li><a href="pdf/NASBUG_T4_MANUAL.pdf">NASBUG T4 manual.</a></li>
+<li><a href="pdf/Keys of Kraal.pdf">Manual for Keys of Kraal</a></li>
+<li><a href="pdf/Dungeon Quest.pdf">Manual for Dungeon Quest</a></li>
+</ul>
+
+<i>Schematics, Proms and Character Generator EPROMS:</i>
+<ul>
+<li><a href="pdf/NASCOM1.PDF">Schematics of NASCOM 1</a><br>
+    Alternative versions:
+    <a href="pics/Schema Nascom1 CPU.jpg">CPU</a>,
+    <a href="pics/Schema Nascom1 CRT.jpg">CRT</a>,
+    <a href="pics/Nascom 1 en 2 Keyboard.jpg">KBD</a>.
+<li><a href="pdf/Nascom2.pdf">Schematics of NASCOM 2</a></li>
+<li><a href="mon/Naschr.nas">Character Generator</a></li>
+<li><a href="rom/Naschessgraph.txt">Chess Graphics ROM</a></li>
+<li><a href="pics/nasio.gif">Nascom I/O Board sheet I</a></li>
+<li><a href="pics/ioint.gif">Nascom I/O Board sheet II</a></li>
+<li><a href="pdf/nas2proms.pdf">Listing of the Nascom 2 Proms.</a></li>
+</ul>
+
+<i>Data sheets of special components:</i>
+<ul>
+<li><a href="pdf/z80-mostek.pdf">Z80-CPU Mostek Manual from Nascom 1 manual set.</a></li>
+<li><a href="pdf/z80pio.pdf">Z80-PIO Programming Summary.</a></li>
+<li><a href="pdf/2708.pdf">EPROM 2708 1K*8</a></li>
+<li><a href="pdf/6402.pdf">UART 6402</a></li>
+<li><a href="pdf/4118.pdf">SRAM 4118 1K*8</a></li>
+</ul>
+
+<i>Monitors for Nascom1 to Nascom3:</i>
+<ul>
+<li><a href="mon/Nasdos.nas">NAS-DOS 1 operating system for a DSDD 80 tracks FDD.</a></li>
+<li><a href="mon/Avc.nas">NASCOM ROM Basic extentions for the Advanced Video Card (AVC)</a></li>
+<li><a href="mon/Nasbugt2.nas">Nasbug T2</a></li>
+<li><a href="mon/Nasbugt2.mac">Nasbug T2 source file (CP/M Z80ASM)</a></li>
+<li><a href="mon/BBUG.NAS">B BUG</a></li>
+<li><a href="mon/Nasbugt4.nas">Nasbug T4 (see manual above)</a></li>
+<li><a href="mon/Nassys1.nas">Nas-Sys 1</a></li>
+<li><a href="mon/NASSYSI.NAS">Nas-Sys i (corrected version of NAS-SYS 1 to handle interrupts)</a></li>
+<li><a href="mon/Nassys3.nas">Nas-Sys 3</a></li>
+<li><a href="mon/Nassys3.mac">Nas-Sys 3 source file (CP/M Z80ASM)</a></li>
+<li><a href="mon/Sysex.nas">SysEx Nas-Sys Extender</a></li>
+<li><a href="rom/nasmon.zip">Hisoft Nasmon 4K</a></li>
+<li><a href="mon/Demon.nas">The Nascom Demon (shows a bug in NASSYS)</a></li>
+<li><a href="mon/Graphedt.nas">A Character definition editor (needs BASIC.NAS)</a></li>
+<li><a href="mon/Chrdat.nas">The Nascom 2 Character set at location 8000 for Graphedt.NAS</a></li>
+<li><a href="mon/Nasprint.nas">NASPRINT : the Nascom printer support</a></li>
+<li><a href="mon/Rambug.nas">RAMBUG : the Z80 Memory Tester</a></li>
+</ul>
+
+<i>Assemblers, Disassemblers and Debuggers:</i>
+<ul>
+<li><a href="asm/zen.zip">ZEN Assembler for Nasbug.</a></li>
+<li><a href="asm/Zen.pdf">ZEN Assembler Manual</a></li>
+<li><a href="asm/NASMEM.NAS">Hisoft Nasmem Assembler for Hisoft Nasmon. Start J:3000</a></li>
+<li><a href="tools/z2.zip">Z2 Assembler</a></li>
+<li><a href="tools/rdebdis.zip">Super Debug 3.1 and Nas-Dis 1.1 relocatable</a></li>
+<li><a href="asm/COMPASS1.ZIP">Compression Assembler 1.4 (at E000, can handle RCAL+SCAL)</a></li>
+<li><a href="tools/zeap-1.1.t4">ZEAP 1.1 version (starts at 0F00H)</a> <br>
+    <b>Note:</b><i>.t4</i> files are generated with the <b>D</b> (dump) T4 command, and must be loaded under T4 by the
+    <b>L</b> (load) command. These files are not compatible with the <i>.sys</i> files generated by the <b>Xww</b> + <b>Txxxx yyyy</b>
+    Nas-Sys commands because T4
+    does not use standard ASCII CR and BS.  It is possible to edit them and to globally substitute the non-standard codes,
+    however ZEAP 1.1 is not compatible with Nas-Sys.
+   </li>
+<li><a href="asm/ZEAP10.NAS">ZEAP 2.0 RAM version (written by Paul Chapman)</a></li>
+<li><a href="asm/Disasm.nas">Disassembler with NASSYS extentions (e.g. SCAL) Start E6000 </a></li>
+<li><a href="asm/L9cmpss.nas">Compression Assembler COMPASS 1.3 (Level 9 Computing).</a></li>
+<li><a href="asm/Convers.nas">Convert ZEAP files to COMPASS 1.3 files (Level 9 Computing)</a></li>
+<li><a href="asm/Odebdis.nas">NAS-DEBUG and NAS-DIS the standard NASCOM debugger and disassembler. </a>Some <a href="asm/Debdis.txt">Notes</a></li>
+<li><a href="asm/Debdis.cas">NAS-DEBUG and NAS-DIS disassembled as a COMPASS 1.3 file</a></li>
+<li><a href="asm/Strace.nas">Debugger Super-Trace located at C000. </a>Some <a href="asm/Strace.txt">Notes</a></li>
+<li><a href="asm/Strace8.nas">Debugger Super-Trace located at 8000. </a>Some <a href="asm/Strace.txt">Notes</a></li>
+<li><a href="asm/Zeap.nas">Assembler ZEAP 2.1 (written by Paul Chapman).</a></li>
+<li><a href="asm/asscrol2.nas">ASSCROL 2 ZEAP 2.x utility</a></li>
+<li><a href="asm/Nap.nas">Assembler NAP. </a>Some <a href="asm/Nap.txt">Notes</a></li>
+<li><a href="asm/Nip.nas">Disassembler NIP.</a>Some <a href="asm/NIP.TXT">Notes</a></li>
+<li><a href="asm/Gener80.nas">Gener-80 Assembler</a></li>
+<li><a href="asm/Reloc.nas">Z-80 Relocator by Logic Soft 1981</a>, with <a href="pdf/LogicSoft Relocator.pdf">manual</a></li>
+<li><a href="asm/vtasm.nas">V &amp; T Assembler</a></li>
+</ul>
+
+<i>Programming Languages:</i>
+<ul>
+<li><a href="tools/HS12KBAS.NAS">Hisoft 12K Basic for Nasmon. Start J:4300 (1980)</a></li>
+<li><a href="lang/XBASIC.NAS">xtal Nascom Enhanced Nascom Basic 3.1T (1982)</a></li>
+<li><a href="lang/tdlbas.nas">TDL 12K Basic (1977) (needs Vnascom &gt; V2.1) cold start J, warm start Z.</a></li>
+<li><a href="lang/Npasorg.nas">Nascom Pascal 2.0 ROM Version(1981)</a></li>
+<li><a href="lang/Hpas15.nas">Hisoft Pascal V1.0 (1982)</a></li>
+<li><a href="lang/Hpascal.nas">Hisoft Pascal V1.5 (1983)</a></li>
+<li><a href="lang/Hisoft.nas">Hisoft Pascal V2.0 with screen editor (1983)</a></li>
+<li><a href="lang/Polypas.nas">BLS Pascal V1.0 (1981) ROM Version</a></li>
+<li><a href="lang/Blspas.nas">BLS Pascal 1.2 RAM Version(1981)</a></li>
+<li><a href="lang/Xtal.nas">xtal Basic 2.2. </a>Some <a href="lang/Xtal.txt">Notes</a></li>
+
+<li>8K tape-Basic code (starts at  1000H).
+    Nas-Sys version: <a href="tools/basic8Ktape.nas">basic8ktape.nas</a> and
+    T4 version: <a href="tools/basic8Ktape.t4">basic8ktape.t4</a>.</li>
+
+
+<li><a href="lang/Basic.nas">Microsoft NASCOM ROM Basic (1978)</a></li>
+<li><a href="lang/8kbasic.asm">Microsoft NASCOM ROM Basic source file (Zilog ASM 2.1 syntax)</a></li>
+<li><a href="lang/Toolkit.nas">Nas-Sys Toolkit (more keywords for the NASCOM ROM Basic)</a></li>
+<li><a href="lang/L9bas.nas">Extention Basic V1.3 by Level 9 Computing. </a>Some <a href="lang/Exbas.txt">Notes</a></li>
+<li><a href="lang/Graphpck.nas">nas-Graphpac 1.0 for NASCOM BASIC (CCsoft 1982)</a></li>
+<li><a href="lang/Intpas.nas">Integer Pascal Compiler (1980). </a>Some <a href="lang/Intpas.txt">Notes</a></li>
+<li><a href="lang/Tinybas.nas">3K Tiny Basic Interpreter</a></li>
+<li><a href="lang/Hulforth.nas">Hull Forth Interpreter/Compiler (1982)</a></li>
+<li><a href="lang/Nforth.nas">NAS-Forth Version 1.11</a></li>
+<li><a href="lang/Tforth.nas">T-Forth from the german Nascom Journal</a></li>
+<li><a href="lang/TB.rom">Nascom 2k Tiny Basic (rom image)</a>, with
+    <a href="lang/TB.asm">assembler source</a>,
+    <a href="lang/TB.html">documentation</a>, and a
+    <a href="lang/TB.txt">note</a>.</li>
+
+</ul>
+
+<i>Text Processors, Databases and Spreadsheet Programs:</i>
+<ul>
+<li><a href="text/RETREV2.ZIP">Retriever 2 for Nas-Sys (1981)</a> with sample database. </li>
+<li><a href="text/Naspen.nas">Naspen 1.0 for Nas-Sys</a></li>
+<li><a href="text/Naspen2.nas">Naspen 2.0 for Nas-Sys (E8000)</a></li>
+<li><a href="text/Wordease.nas">Wordease (cold start at EF002)</a></li>
+<li><a href="text/Nascalc.nas">NasCalc (needs BASIC.NAS to run, start E5000)</a></li>
+<li><a href="text/Mcedit.nas">MC-Edit Texteditor (start at E2300)</a></li>
+</ul>
+
+<i>Games:</i>
+<ul>
+<li><a href="games/chessv13.zip">Sargon Chess V1.3 with graphics.</a></li>
+<li><a href="games/invaders.nas">Invasion Earth.</a></li>
+<li><a href="games/galaxian.nas">Galaxy Attack.</a></li>
+<li><a href="games/jailbrk.nas">Jailbreak. Start E20EA.</a></li>
+<li><a href="games/sargon.nas">Sargon Chess. Start E2FB8.</a></li>
+<li><a href="games/chaser.nas">Chaser. Keys: E=up, D=down, K=left, L=right.</a></li>
+<li><a href="games/GALAXY.NAS">Galaxy Attack. 1981 by South East London Software.</a></li>
+<li><a href="games/GALINV.NAS">Galactiv Invaders.</a></li>
+<li><a href="games/INVASION.NAS">INVASION (runs on the unexpanded Nascom 1 under NASBUG T2/T4) start EF24</a></li>
+<li><a href="games/HANGMAN.NAS">HANGMAN (runs on the unexpanded Nascom 1 under NASBUG T2/T4) start EC70</a></li>
+<li><a href="games/FRUIT.NAS">FRUIT MACHINE (runs on the unexpanded Nascom 1 under NASBUG T2/T4) start ED00</a></li>
+<li><a href="games/REACT.NAS">Mastermind II (runs on the unexpanded Nascom 1 under NASBUG T2/T4) start EC50</a></li>
+<li><a href="games/rubic.nas">Rubic's cube (for Nas-sys 1) start EFD0</a></li>
+<li><a href="games/spacewar.zip">Space War (1983) by Richard C. Espley.</a> Needs NAS-SYS 3.</li>
+<li><a href="games/l9astoid.zip">Asteroids (Level 9).</a> corrected version.</li>
+<li><a href="games/surround.zip">Level 9 Surround (Level 9).</a></li>
+<li><a href="games/raider.zip">Moon Raider.</a> Needs basic.nas.</li>
+<li><a href="games/tictacto.zip">TicTacToe.</a></li>
+<li><a href="games/CAVE_16K.NAS">Adventure by Syrtis Software (16K), Copyright (c) 1982 Michael J. Evis.</a>
+<li><a href="games/CAVE_32K.NAS">Adventure by Syrtis Software (32K), Copyright (c) 1982 Michael J. Evis.</a>
+    (<a href="games/CAVE.CLU">Clues</a> and <a href="games/CAVE.SOL">Solution</a> -- may apply to CAVE_16K instead).</li>
+<li><a href="games/Adventr.NAS">Colossal Adventure (32K) by Level 9.</a></li>
+<li><a href="games/dungeon.zip">Dungeon Adventure (Level 9).</a></li>
+<li><a href="games/quest.zip">Adventure Quest (Level 9).</a></li>
+<li><a href="games/gold.zip">Eldorado Gold by David Elliot, start EC80.</a></li>
+<li><a href="games/MASTERM.ZIP">Mastermind II (runs on the unexpanded Nascom 1 under NASBUG T2/T4) start ED22</a></li>
+<li><a href="games/OTHELLO.NAS">Othello (runs on the unexpanded Nascom 1 under NASBUG T2/T4) start ED00</a></li>
+<li><a href="games/Lolly.nas">Lollypop Lady Trainer (for NAS-SYS 3 only)</a></li>
+<li><a href="games/Bananflu.nas">Revenge of the Drosphila (start E3123)</a></li>
+<li><a href="games/Bandid.nas">The Fruit Machine</a></li>
+<li><a href="games/Lunar.nas">Lunar Lander (start E1E6A)</a></li>
+<li><a href="games/Eliza.nas">The classic game ELIZA</a></li>
+<li><a href="games/Piranha.nas">Piranha</a></li>
+<li><a href="games/Car_race.nas">Car Racing by David Kastrup</a></li>
+<li><a href="games/Snowball.nas">Snowball</a> (Level 9), and a <a href="games/Snowball.sol">full solution</a></li>
+<li><a href="games/Lordtime.nas">Lord of Time</a> (Level 9), and a <a href="games/LordsOfTime.sol">full solution</a></li>
+<li><a href="games/Eden.nas">Return To Eden</a> (Level 9), and a <a href="games/ReturnToEden.sol">full solution</a></li>
+<li><a href="games/Spacezap.nas">SpaceZap</a></li>
+<li><a href="games/Spcinv.nas">Space Invaders</a></li>
+<li><a href="games/Spaceii.nas">Space Invaders 2</a></li>
+<li><a href="games/Pacman.nas">Pacman</a></li>
+<li><a href="games/Pacman2.nas">Pacman 2 (scrolled display)</a></li>
+<li><a href="games/3dmaze.nas">3D Maze</a></li>
+<li><a href="games/3dlabyr.nas">3D Labyrint</a></li>
+<li><a href="games/Serpent.nas">Serpent (by Wal Haywood - previously mislabelled "Snakes")</a></li>
+<li><a href="games/Reversi.nas">Reversi</a></li>
+<li><a href="games/Avalanch.nas">Avalanche (ED000)</a></li>
+<li><a href="games/Monster.nas">Monsters</a></li>
+<li><a href="games/Breakout.nas">Breakout</a></li>
+<li><a href="games/Lumberja.nas">LumberJack</a></li>
+<li><a href="games/Life.nas">Game of Life</a></li>
+<li><a href="games/Hole.nas">The Hole In The Wall</a></li>
+<li><a href="games/Chess.nas">Logichess</a> (in danish). <a href="games/logichess.html">Notes</a></li>
+<li><a href="games/chessgra.zip">Chess with Graphics in german with chess graphics rom.</a></li>
+<li><a href="games/Nschach.nas">Chess without Graphics in german</a></li>
+<li><a href="games/Starfght.nas">not running in VNASCOM: Starfight (needs two nascoms connected through the PIO)</a></li>
+</ul>
+
+<i>Programs in NASCOM Basic for loading with the basic command CLOAD:</i>
+<ul>
+<li><a href="mbasic/DQUEST.CAS">Dungeon Quest.</a></li>
+<li><a href="mbasic/keyskraal.cas">Keys of Kraal.</a></li>
+<li><a href="mbasic/3dnc.cas">3d Noughts and Crosses.</a></li>
+<li><a href="mbasic/alieninv.cas">Alien Invaders.</a></li>
+<li><a href="mbasic/amaster.cas">Auto Mastermind.</a></li>
+<li><a href="mbasic/bio.cas">Bio Rhythms.</a></li>
+<li><a href="mbasic/bio2.cas">Bio Rhythms 2.</a></li>
+<li><a href="mbasic/drive.cas">Drive.</a></li>
+<li><a href="mbasic/hangman.cas">Hangman.</a></li>
+<li><a href="mbasic/hello.cas">Hello.</a></li>
+<li><a href="mbasic/labyrb.cas">Labyrinth.</a></li>
+<li><a href="mbasic/lunar2.cas">Lunar II.</a></li>
+<li><a href="mbasic/moonbase.cas">Moonbase.</a></li>
+<li><a href="mbasic/othello.cas">Othello.</a></li>
+<li><a href="mbasic/quest.cas">Quest.</a></li>
+<li><a href="mbasic/sheepdog.cas">Sheepdog.</a></li>
+<li><a href="mbasic/srmbl.cas">Scamble, The Word Computer Game.</a></li>
+<li><a href="mbasic/startk16.cas">Star-Trek for 16KB Nascoms.</a></li>
+<li><a href="mbasic/wraptrap.cas">WrapTrap.</a></li>
+<li><a href="mbasic/maloche.cas">Maloche game in german.</a></li>
+<li><a href="mbasic/scramble.cas">Mini Scramble game in german.</a></li>
+<li><a href="mbasic/Ldgold.cas">Lost Dutchman's Gold</a></li>
+<li><a href="mbasic/Startrek.cas">The classic game Startrek</a></li>
+<li><a href="mbasic/Snailr.cas">Snail Racing from PCW</a></li>
+<li><a href="mbasic/Swinghs.cas">SwingHouse (graphic Animation after 10 min)</a></li>
+<li><a href="mbasic/Adventr.cas">Adventure Land</a></li>
+<li><a href="mbasic/Swords.cas">Swords and Sorcery by David Kastrup</a></li>
+<li><a href="mbasic/limo.cas">Lemonade Stand</a></li>
+<li><a href="mbasic/Camel.cas">Camel</a></li>
+<li><a href="mbasic/Dame.cas">Das Dame Spiel (Checkers)</a></li>
+<li><a href="mbasic/Schiffe.cas">in german: Schiffe versenken</a></li>
+<li><a href="mbasic/Symdiff.cas">mathematics in german: symbolisches Differenzieren</a></li>
+<li><a href="mbasic/Vector.cas">mathematics in german: Vektorrechnung</a></li>
+<li><a href="mbasic/Filter.cas">electronics in german: Filterberechnung</a></li>
+<li><a href="mbasic/The Invaders.cas">The Invaders &mdash; from C&amp;VG</a>
+</ul>
+
+<i>Assembler programs written for ZEAP 2.x for loading with the ":" and "R" command :</i>
+<ul>
+<li><a href="zeap/Euler.cas">Calculation of the Euler number</a></li>
+<li><a href="zeap/UFOJAGD.CAS">Ufo-Jagd (shooter).</a></li>
+</ul>
+
+<i>Assembler library</i>
+<ul>
+  <li>Anders Hejlsberg (of BLS Pascal, Turbo Pascal, and C# fame)
+    authored a wonderful <a href="asm/Math48-Floating-Point-Package.zip">48
+    bit floating point matematical package</a> for Z-80 based
+    microcomputers.  This is used in BLS Pascal.
+  </li>
+</ul>
+
+<i>Pascal programs written in BLS/Nascom Pascal for loading with the "L" command :</i>
+<ul>
+<li><a href="pas/3dlab.cas">3D Labyrint (5*5*5 fields)</a></li>
+<li><a href="pas/CUBUS.CAS">Cubus</a> for BLS Pascal 1.2 only </li>
+</ul>
+
+<i>Programs for the Radio Amateur :</i>
+<ul>
+<li><a href="radio/RADIO.ZIP">Collection of Radio/Satellite MBasic programs.</a></li>
+</ul>
+
+<a><i>CP/M programs, bios versions:</i></a>
+<ul>
+<li><a href="cpm/SNOWBALL.ZIP">a CP/M Version of Snowball adventure game </a></li>
+<li><a href="cpm/LORDTIME.ZIP">a CP/M Version of Lord of Time adventure game</a></li>
+<li><a href="cpm/Snowball.mac">a CP/M Version of the Level 9 P Code Interpreter</a></li>
+<li><a href="cpm/avcbios.zip">a CP/M 2.2 Bios for the AVC Video Card by David Kastrup</a></li>
+<li><a href="cpm/Bios.cas">a CP/M 2.2 Bios for the Nascom 2 (Level 9 Compression Assembler)</a></li>
+<li><a href="cpm/Emdos.cas">a disk monitor by Helmut Emmelmann (Zeap 2.0)</a></li>
+<li><a href="cpm/DMACRT.CAS">a CP/M driver for the original 48*16 Video with DMA support (Zeap 2.0)</a></li>
+<li><a href="tools/gbasic2.cpm">Nascom Enhanced GBASIC Version 3.2C (CP/M) 1982</a></li>
+<li><a href="tools/gbasic3.cpm">Nascom Enhanced GBASIC Version 3.3C (CP/M) 1982</a></li>
+<li><a href="tools/BASIC6.CPM">Basic-80 Rev. 5.2 Nascom II (CP/M) 1980</a></li>
+</ul>
+
+
+<i>Hardware Drivers (currently not supported in VNascom):</i>
+<ul>
+<li><a href="driver/BURNPROM.NAS">Software for the 2708/2716 EPROM programmer.</a></li>
+<li><a href="driver/Hobbit.nas">Hobbit: A Nas-Sys extention for the Philips MDCR Mini Digital Cassette Recorder (see manual above)</a></li>
+<li><a href="driver/Eprommer.nas">Eprom programmer for Prommer-80 ECB card(start E8000)</a></li>
+</ul>
+
+
+
+<h2><a name="Pictures"></a>Pictures</h2>
+Here are some of the pictures of the Nascom:
+<ul>
+<li><a href="pics/nascom2-ensemble-half.jpg">A Nascom 2 with monitor</a></li><li><a href="pics/nascom2-pcb-half.jpg">The main PCB</a></li>
+<li><a href="pics/nascom2-64KB-half.jpg">A homebrewed 64KB memory extension</a></li>
+</ul>
+
+
+<h2><a name="thanks"></a>Acknowledgement</h2>
+Words of thanks goes to:
+<ul>
+<li>Dennis Wray for the Nascom 2k Tiny Basic and Nasbug T2 fixes.</li>
+<li>Jean-Claude Pesce for new scans.</li>
+<li>Robert Gill for a lot of Micropower magazine.</li>
+<li>John Hunt for much work on the <a href="#Magazines">Wireless World</a> articles.</li>
+<li>Mike Fox for scanned INMAC News issues and program loading tips, and much more.</li>
+<li>Robert Gill for a lot of Micropower magazine.</li>
+<li>Mikael Pontén for a CD with POLYDOS and Lucas CP/M 2.2 V3.2.</li>
+<li>Paul Williams, for a glimpse of the history behind Nascom.</li>
+<li>Richard Espley for a copy of the AVC manual, the NAS-SEMBLER
+manual, many Nasdos applications, the Level 9 adventures and the Nascom
+2/3 emulator in Java. </li>
+<li>Steve Drinkwater for the INMC news magazine.</li>
+<li>Robert Gill for the Xtal Basic manuals.</li>
+<li>Richard Hodson for the Hisoft 12K Basic manuals, code and the INMC magazine.</li>
+<li>John Parry for the V&amp;T Assembler.</li>
+<li>John Parkin for the Z2 Editor/Assembler manual.</li>
+<li>Lars Jonssen for the Compression Assembler manual.</li>
+<li>Paul Chapman, the author of the ZEAP Assembler.</li>
+<li>Peter Brendel for some Basic games.</li>
+<li>Jesper Hansen for BLS Pascal 1.0.</li>
+<li>Alain Gibaud for the 8k tape basic and ZEAP 1.1 and documentation for both.</li>
+<li>Terry Carter for the LogicSoft Relocator manual.</li>
+<li>Lex Landa for typed in version of Nimbot and Invaders.</li>
+<li>Roger Scott for the Chess graphics rom and D-DOS documentation.</li>
+<li>Knut Syvertsen for INMC scans and NASBUG T4 and HOBBIT V2 manuals.</li>
+</ul>
+
+<h2><a name="Links"></a>Links to other Nascom related sites</h2>
+
+<ul>
+<li><a href="http://nascom-uk.blogspot.com">Howard's NASCOM</a></li>
+<li><a href="http://tupel.jloh.de/nascom/"> German Nascom magazines presented by Juergen Loh.</a></li>
+<li><a href="http://www.binarydinosaurs.co.uk/Museum/Nascom/nascom1.php">NASCOM 1 at Binary Dinosaurs.</a></li>
+<li><a href="http://mess.emuverse.com/">The MESS Homepage</a></li>
+<li><a href="http://proxy.www.lysator.liu.se/adventure/machines/NASCOM.html">Adventure Game History: NASCOM</a></li>
+<li><a href="http://www.homecomputer.de/pages/MachineInfo/Lucas_Nascom-3.html">Nascom III in the HCM </a><a href="http://www.homecomputer.de/"> http://www.homecomputer.de </a></li>
+</ul>
+
+
+<h2><a name="Mirrors"></a>Mirrors</h2>
+<ul>
+<li><a href="http://numba-tu.com/nascomhomepage.com">http://numba-tu.com/nascomhomepage.com</a>
+   (refreshed weekly),</li>
+<li><a href="http://nascom.123.free.fr/">http://nascom.123.free.fr</a> (not updated for 10+ years).</li>
+</ul>
+
+<!-- Start of NedStat Basic code -->
+
+<a href="http://de.nedstat.net/viewstat.asp?name=nassys3">
+<img src="http://de.nedstat.net/scripts/nedstat.dll?name=nassys3" alt=""
+border="0" height="22" width="22"></a>
+
+<!-- End of NedStat Basic code -->
+<img src="http://cgicounter.puretec.de/cgi-bin/cnt?clsid=5a896744ec169a5a735f481a036a1a331">
+<!--  LocalWords:  Nascom NASSYS EPROM Z80 ASSEMBLER DISASSEMBLER HOMECOMPUTER COMPUTER KITS CP/M LUCAS SINGLE BOARD COMPUTER
+ -->
+
+</body>
+</html>

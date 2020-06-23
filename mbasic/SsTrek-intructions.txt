@@ -1,0 +1,109 @@
+
+**************************
+*                        *
+*  ** SUPER STARTREK **  *
+*                        *
+**************************
+
+Instructions for Super Startrek
+===============================
+
+1. When you see 'Command ?' printed  enter one of the legal
+   commands (NAV, SRS, LRS, PHA, TOR, SHE, DAM, COM or XXX).
+2. If you should type in an illegal command, you'll get a short list of the
+   legal commands printed out.
+3. Some commands require you to; enter data (e.g., The 'NAV' command comes
+   back with 'Course (1-9) ?'.)
+
+If you type in illegal data (like negative numbers), that command will be
+aborted.
+
+The galaxy is divided into an 8 x 8 quadrant grid, and each quadrant is
+further divided into an 8 x 8 sector grid.
+
+You will be assigned a starting point somewhere in the galaxy to begin a tour
+of duty as commander of the starship 'Enterprise'; Your mission: To seek and
+destroy the fleet of Klingon warships which are menacing the United Federation
+of Planets. You have the following commands available to you as Captain
+of the starship Enterprise:
+
+'NAV' Command=Warp engine control
+
+Course is a circular numerical vector arrangement as shown:
+
+          4  3  2
+           . . .
+            ...
+        5 ---*--- 1
+            ...
+           . . .
+          6  7  8
+
+Integer and real values may be used. (Thus course 1.5 is halfway
+between 1 and 2).
+Values for course may approach 9.0 which itself is equivalent to 1.0
+One Warp Factor is the size of one quadrant. Therefore, to get from quadrant
+6,5 to 5,5 , you would use Course 3, Warp Factor 1.
+
+Command Detail
+==============
+
+'SRS' Command=Short Range Sensor Scan:
+        Shows you a scan of your present quadrant.
+        Symbology on your sensor screen is as follows:
+                -0-=Your starship's position
+                >!<=Klingon Battle Cruiser
+                <0>=Federation Starbase (Refuel/Repair/Re-arm here!)
+                * =Star
+        A condensed status report will also be presented.
+
+'LRS' Command=Long Range Sensor Scan:
+        Shows conditions in space for one quadrant on each side of the Enterprise
+        (which is in the middle of the scan). The scan is coded in the form
+        '0 0 0', where the units digit is the number of stars, the tens digit is
+        the number of starbases and the hundreds digit is the number of Klingons.
+        e.g. 2 0 7=2 Klingons, no starbases and 7 stars.
+
+'PHA' Command=Phaser Control:
+        Allows you to destroy the Klingon Battle Cruisers by zapping them with
+        suitably large units of energy to deplete their shield power.
+        (Remember Klingons have phasers too!)
+
+'TOR' Command=Photon Torpedo Control Torpedo course is the same as used in
+        warp engine control. If you hit the Klingon vessel, he is destroyed and
+        cannot fire back at you.
+        If you miss, you are subject to his phaser fire. In either case, you are
+        also subject to phaser fire of all other Klingons in the quadrant.
+        The Library-Computer ('COM' command) has an option to compute torpedo
+        trajectory for you. (Option 2)
+
+'SHE' Command=Shield Control:
+        Defines the number of energy units to be assigned to the shields. Energy
+        is taken from the total ship's energy. NOTE. On the status display, total
+        energy includes shield energy.
+
+'DAM' Command=Damage Control Report:
+        Gives the state of repair of all devices. A negative 'State of Repair'
+        shows that the device is temporarily damaged.
+
+'COM' Command=Library-Computer:
+        The Library-computer contains six options:
+
+                0=Cumulative galactic record:
+                  This option shows computer memory of the results of all previous
+                  Short and Long Range Sensor Scans.
+
+                1=Status Report:
+                  This option shows the number of Klingons, stardates and starbases remaining in the game.
+
+                2=Photon torpedo data:
+                  Gives directions and distance from the Enterprise to all Klingons in your quadrant.
+
+                3=Starbase Nav Data:
+                  This option gives you direction and distance to any starbase within your quadrant.
+
+                4=Direction/distance calculator:
+                  Allows you to enter coordinates for direction/distance calculations.
+
+                5=Galactic/Region name/ Map:
+                  Prints the names of the 16 major galactic regions referred to in the game.

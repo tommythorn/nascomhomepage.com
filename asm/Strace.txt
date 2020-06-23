@@ -1,0 +1,28 @@
+SuperTrace
+==========
+
+SuperTrace is a debugger for Nas-sys 1 or Nas-sys 3 with dynamic breakpoints.
+The breakpoint is described by a test condition in Zilog Assembler
+statements combined with logical operators (AND, OR, NOT). The debugger 
+uses the single step hardware of the Nascom, which generates a NMI on each
+M1 cycle of the Z80. Debugging through LDIR for example generates so
+many breakpoints as the BC register holds.
+
+Start: E8000 or EC400 (depends on version)
+       E start_adr arg1 arg2 arg3
+
+Commands:
+Q	: Quit to NAS-SYS
+R	: Register menu
+	  enter register or memory values, return to main menu with ESC
+	  (shift CR)
+T	: Test Condition (ends with '.')
+	  e.g. HL=1234 AND DE=4321.
+L	: Lines
+S	: toggles Single Step or Run Mode
+M	: Modify (as the NAS-SYS 'M' command)
+N	: New display
+K	:
+
+The ENTER key steps to the next statement of the debugged program.
+

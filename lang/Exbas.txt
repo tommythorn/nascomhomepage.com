@@ -1,0 +1,48 @@
+Level 9 Computing Extention Basic
+=================================
+
+The Level 9 Extention Basic adds some keywords to the Basic command
+set of the Nascom ROM Basic 4.7. It comes on tape in a format to
+relocate it to the needs of the user:
+All of the original documents are lost, but here is what we know:
+
+1. Start:   
+   ED000   If D000 was given as the argument to relocation.
+   J       cold start basic
+           Extention Basic needs to run in ROM laufen or you have
+           to calculate the "Memory Size" while starting Basic.
+
+	    
+2. The new Extention Basic keywords:
+   AUTO start_line, line_increment
+   RENUMBER startline, increment
+   DELAY milliseconds	; delay for xxx milliseconds
+   PUT
+   CALL
+   TRACE 1 | 0		; enable/disable tracing
+   XLIST
+   GET
+   CHECK
+   VDU
+   DEC
+   SPEED
+   XREF
+   INKEY variable	; wait for a key and returns the ascii code
+   TEST
+   COPY
+   INLIN
+   BREAK
+   ELSE	 IF condition THEN statement: ELSE statement
+   LINE
+   PLOT
+   TRAP
+   EDIT line_number	; edit a basic line
+   FIND
+   DELETE
+   REDUCE
+   REPEAT
+   UNTIL
+   WHILE
+   WEND
+   HEX
+   	    

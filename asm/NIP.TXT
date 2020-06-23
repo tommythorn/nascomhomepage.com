@@ -1,0 +1,44 @@
+NIP Disassembler
+================
+
+Nascom disassembler package for the Nas-sys 1 and Nas-sys 3 monitors.
+The NIP disassembler is designed to work with the NAP assembler.
+All of the original documentation is lost. Here is what we know about NIP:
+
+Q		Quit to NASSYS
+W		Goto NAP (Assembler) RAM or ROM Version
+T from to	Tabulate Memory
+O from to	Offset
+A from to lines define a DB area
+                0 = don't stop, or stop afer xx lines
+S from to	Select symbol memory for label generation
+L+		Turn label generation on
+L-		Turn label generation off (default)
+C+		Turn comment generation on
+C-		Turn comment generation off (default)
+H+		Turn hex mode on (default)
+H-		Turn hex mode off 
+R+		Generate relative jump/call addresses
+R-		Generate absolute jump/call addresses (default)
+U+		set user mode on for printing
+U-		set user mode off (default)
+D from to lines	Disassemble program
+J from to 	Disassemble program and hold on jump, ret
+X
+E
+B from to	define Buffer from to for generated NAP File
+N from to	generate NAP file in buffer
+= byte1 byte2 byte3 Disassemble one Z80 opcode
+
+sample session
+EC400			; start disassembler
+S8000 BFFF		; define symbol memory
+L+			; turn label generation on
+B2000 7FFF		; define buffer for NAP
+N1000 2000		; disassemble 1000..2000
+W			; goto NAP
+
+or 
+EC400			; start disassembler
+D1000 2000 8		; disassemble 1000..2000 with stops after 8 lines
+

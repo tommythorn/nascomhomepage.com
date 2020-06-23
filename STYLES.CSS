@@ -1,0 +1,35 @@
+   .blueG { color: blue; font-size: large; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+   .blueN { color: blue; font-size: medium; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+   .blueK { color: blue; font-size: small; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+   .plain_xs_bl { margin-top:0px;margin-left:0cm;color: #000060; font-size:9pt; font-family: Verdana, Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+
+   .plain_s_bl { margin-top:0px;margin-left:0cm;color: #000060; font-weight:600; font-size: 12pt; font-family: Verdana, Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+   .plain_s_b_bl { margin-top:0px;margin-left:0cm;color: #000060; font-weight:600; font-size: 8pt; font-family: Verdana, Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+
+   .plain_m_bl { margin-top:0px;margin-left:0cm;color: #000060; font-size: small; font-family: Verdana, Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+
+   .plain_l_bl { margin-top:0px;margin-left:0cm;color: #000060; font-size: medium; font-family: Verdana, Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+
+   .plain_xl_bl { margin-top:0px;margin-left:0cm;color: #000060; font-size: large; font-family: Verdana, Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+
+   .plain_s { margin-left:0cm;color: #000000; font-size: x-small; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+
+   .plain_m { margin-left:0cm;color: #000000; font-size: small; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+
+   .plain_l { color: #000000; font-size: medium; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+
+   .plain_xl { margin-left:0cm;color: #000000; font-size: large; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+
+
+   body { background-color:#efeefe; }

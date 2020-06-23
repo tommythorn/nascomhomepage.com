@@ -1,0 +1,1142 @@
+	.Z80
+;This P-Code interpreter for Level-9-Computing text-adventures
+;is written for use under a standard CP/M environment.
+;
+;Enhancements are as follows:
+;
+;8080 code is used exclusively, thus allowing operation under
+;any CP/M-system.
+;
+;The program has been optimized in speed and program size.
+;
+;Save and restore game works on the file 'SNOWBALL.SAV'.
+;Change the name for other adventures than snowball.
+;
+;Any terminal using CR/LF and providing a clear-screen-character
+;may be used (characters/line and clear-screen-character patchable).
+;Words are not broken between lines (actually, they never were).
+;
+;Input lines are automatically converted to uppercase.
+;
+;Multiple commands may be entered in one line, if they are seperated
+;by ','s. Thus you may type 'pull lever,out,north' in one line of input.
+;Since this is not handled inside of the p-code, the question "What now?"
+;will still flash up for every command executed.
+;
+;The so-called Warm-Entry-Point is jumped to, if a jump to address 0
+;is executed during the program. Thus, ^C serves as a simple revival
+;method (in most cases). You should, however, try to avoid idiot's
+;deaths, because the spirit of the game lies not in meeting dangers
+;head-on. If you want to feel like a 'real' adventurer, you should
+;try hard to evade obvious dangers.
+;
+;To adapt your adventures to this p-code interpreter, you obviously
+;only have to change the addresses in the first 20 bytes or so in order
+;to meet the different memory requirements of CP/M. Locate your DSEG
+;after the last table of your adventure. The DSEG contains only un-
+;initialized data.
+;
+;Have fun! Level 9 adventures most certainly are excellent (although
+;not bug-free. Try leaving the main control room of snowball in the
+;in-direction after opening the door. Try waving the holo-wand at the
+;holojectors. Enjoy the great room description at the location of the
+;bomb.)
+
+;
+;The first 3 bytes contain a jump to the "cold" entry.  They  are 
+;produced by L80.
+
+;The  following  bytes  are  added in  my  CP/M-Version.  In  the 
+;standard,  NAS-SYS version,  these are replaced by a jump to the 
+;"warm" entry.
+CLSCR:	DEFB	1AH		;clear-screen-character
+CHPLIN:	DEFB	64		;characters/line-1
+	DEFB	0		;filler, so that addresses of
+				;NAS-SYS and CP/M-Versions match
+
+VARS:	DEFW	X0D00		;address of variable area.
+;change the following entries to the values specific of your
+;adventure
+DIF	EQU	1600H-0A80H     ;difference of adresses from
+				;original nassys to CP/M Version (only data)
+CSTART:	DEFW	2010H-DIF 	;address of cold entry in p-code
+WSTART:	DEFW	2013H-DIF   	;address of warm entry in p-code
+TXTTAB:	DEFW	3940H-DIF 	;address of text area
+MTXTAB:	DEFW	7557H-DIF 	;address of macro text area
+VARANZ:	DEFB	078H		;no. of 2-byte variables
+WRDTAB:	DEFW	1600H-DIF 	;address of token table
+RLTAB:	DEFW	1D10H-DIF		;room link table
+;addresses of various byte-arrays follow
+ 	DEFW  	1F20H-DIF      	;initial locations of objects-50H
+	DEFW	X0DB0		;locations of objects during game-50H
+	DEFW	1FC0H-DIF     	;don't know what
+	DEFW	2380H-DIF      	;"
+	DEFW	X0E91		;"
+;
+; Program cold start
+COLD:	LD	HL,(1)		;get reset vector
+	LD	(WBVECT),HL	;save it
+	LD	HL,WARM		;jump to warm entry on reset
+	LD	(1),HL
+	LD	A,80		;max. allowed chars/input line
+	LD	(LINBUF),A
+	LD	DE,STMSG	;ask for name
+	LD	C,9
+	CALL	5
+COLD01:	LD	C,11		;get keyboard status
+	CALL	5
+	LD	HL,SEED
+	INC	(HL)		;increment random seed
+	OR	A		;was a key pressed?
+	JP	Z,COLD01	;loop if not
+	LD	C,1		;get entered key and echo
+	CALL	5
+	CP	0DH		;CR?
+	JP	NZ,COLD01	;loop if not
+	LD	HL,(CSTART)	;load initial p-code PC
+	JP	START
+
+STMSG:	DEFB	'Please enter your name: $'
+;
+WARM:	LD	HL,(WSTART)
+START:	EX	DE,HL		;put PC in DE
+	LD	HL,(6)		;reload SP
+	LD	SP,HL
+	PUSH	DE		;save PC
+	XOR	A
+	LD	(WLEN),A	;empty word buffer
+	LD	(LINFLG),A	;declare input buffer empty
+	CALL	CRLF		;do a newline
+	POP	HL		;get PC again
+MLOOP:	LD	BC,MLOOP
+	PUSH	BC		;Top of stack = main loop adress	
+	LD	A,(HL)		;get opcode
+	INC	HL		;advance p-PC
+	OR	A		;byte-table-opcode? (>7fH)
+	JP	M,GREATO	;jump if so
+	LD	C,A		;save opcode
+	AND	01000000B	;save 8-bit imm. flg
+	LD	(DBYTEF),A
+	LD	A,C		;get opcode
+	AND	00100000B
+	LD	(JRFLAG),A	;save relative address flag
+	LD	A,C		;get opcode
+	EX	DE,HL		;save p-PC
+	LD	HL,JMPTBL	;address of jump table
+	AND	00011111B	;strip off DB and JR-flags
+	ADD	A,A		;multiply opcode by 2
+	LD	C,A		;use as offset into jump table
+	LD	B,0
+	ADD	HL,BC		;adress of vector
+	LD	C,(HL)		;get vector in BC
+	INC	HL
+	LD	B,(HL)		;BC = vector
+	EX	DE,HL		;restore p-PC
+	PUSH	BC		;push vector
+	RET			;and execute it
+;
+;In the following opcode table, the different operands have the
+;following meanings:
+;i means immediate data. If bit 6 of the opcode is set, i occupies
+;  1 byte and the high-byte is automatically 0. If bit 6 is reset,
+;  i occupies 2 bytes, which are located with lower-byte first.
+;v means a variable address, which occupies 1 byte. Variables itself
+;  are located at @VARS and occupy 16-bit each. The first variable
+;  in the variable area has the number 1.
+;sv, dv, v1 and v2 are also variable addresses
+;adr means an address. If bit 5 of the opcode is set, this means a
+;  8-bit-relative-address. The address is calculated as the address
+;  of the adr-field + the sign-extended 8-bit displacement value at
+;  adr. If bit 5 is reset, it means an absolute address. The actual
+;  address is calculated as @CSTART (beginning of P-code) + the word
+;  at adr.
+;  For further information (i.e. text no's and RLTAB handling),
+;  reference the appropriate subprograms.
+;
+;Opcodes>7FH have special meanings.
+;They do NOT make use of bits 5-6 as described above.
+;A description of these codes follows after the jump table
+
+JMPTBL:	DEFW	JMP		;00 JUMP adr
+	DEFW	CALL		;01 CALL adr
+	DEFW	RET		;02 RET
+	DEFW	PRINT		;03 PRINT v	PRINT v in decimal
+	DEFW	TEXTV		;04 TEXTV v	PRINT text no. v
+	DEFW	TEXTI		;05 TEXTI i	PRINT text no. i
+	DEFW	SPCFNC	 	;06 01 EXIT	exit to operating system
+				;06 02 RND v	move random(0..255) to v
+				;06 03 SAVE	save game
+				;06 04 RESTORE	restore game
+				;06 05 CLR	clear variables
+				;06 06 CSTACK	clear stack
+	DEFW	GETLIN		;07 GETLIN v1 v2 v3 v4 get line, put
+				;   tokens in v1 v2 v3, word count in v4
+	DEFW	MOVEI		;08 MOVE i v	move i to v
+	DEFW	MOVEV		;09 MOVE sv dv	move sv to dv
+	DEFW	ADD		;0A ADD  sv,dv	move dv+sv to dv
+	DEFW	SUB		;0B SUB  sv,dv	move dv-sv to dv
+	DEFW	PUTCHR		;0C CLS		clear screen
+	DEFW	PUTCHR		;0D CRLF	output CR/LF
+	DEFW	XJMP		;0E XJMP adr v	jump to @(adr+2*v)
+	DEFW	SRLT		;0F SRLT v1 v2 v3 v4
+				;   searches room link table from location
+				;   v1 in direction v2. If a link is found,
+				;   the flags of the link are placed in v3
+				;   and the appropriate room no. in v4.
+				;   See the listing for details.
+	DEFW	BEQ		;10 BEQ v1 v2 adr	branch if v2=v1
+	DEFW	BNE		;11 BNE v1 v2 adr	branch if v2<>v1
+	DEFW	BGT		;12 BGT v1 v2 adr	branch if v2>v1
+	DEFW	BLT		;13 BLT v1 v2 adr	branch if v2<v1
+	DEFW	SJMP		;14 SJMP n	jump to 8-bit-adr n
+	DEFW	0		;15 not implemented
+	DEFW	0		;16 not implemented
+	DEFW	0		;17 not implemented
+	DEFW	BEQI		;18 BEQI v i adr	branch if i=v
+	DEFW	BNEI		;19 BNEI v i adr	branch if i<>v
+	DEFW	BGTI		;1A BGTI v i adr	branch if i>v
+	DEFW	BLTI		;1B BLTI v i adr	branch if i<v
+	DEFW	0		;1C not implemented
+	DEFW	0		;1D not implemented
+	DEFW	0		;1E not implemented
+	DEFW	0		;1F not implemented
+
+;opcodes 80H-FFH:
+;
+;there are 4 basical opcodes:
+;80H-9FH, 0A0H-0BFH, 0C0H-0DFH and 0E0H-0FFH.
+;They are used to manipulate byte-arrays. The addresses
+;of the used byte-arrays are those following the label
+;RLTAB. Array 1 is the one, which address is specified
+;1 word after RLTAB.
+;The bits 4-0 have a special meaning in these opcodes:
+;They designate the byte-array to be used.
+;(Note that some of the byte-arrays are uninitialized
+;(in DSEG), while others lie in different modules of
+;the adventure.)
+;The opcodes are followed by 2 bytes:
+;The first byte designate an index into the array (starting with
+;0). It is either a 1-byte-constant (ii) or a variable no. (iv)
+;The second byte indicates the variable (v) with which the trans-
+;fer is to occur.
+;
+;The opcodes are as follows:
+;SXI: 080H+array no. ii v	move v to array(ii)
+;LXV: 0A0H+array no. iv v	move array(iv) to v
+;LXI: 0C0H+array no. ii v	move array(ii) to v
+;SXV: 0E0H+array no. iv v	move v to array(iv)
+;
+
+
+;get an i-field in BC
+GETVAL:	LD	C,(HL)		;get low-byte
+	INC	HL
+	LD	B,0		;set high-byte to 0
+	LD	A,(DBYTEF)
+	OR	A
+	RET	NZ		;return if 8-bit immediate data
+	LD	B,(HL)		;else fetch high-byte and return
+	INC	HL
+	RET
+
+;get an adr-field in DE
+GETADR:	LD	A,(JRFLAG)	;get REL flag
+	OR	A
+	JP	NZ,GETA10	;relative jump if set
+	LD	E,(HL)		;else get next 2 bytes
+	INC	HL
+	LD	D,(HL)
+	INC	HL
+	PUSH	HL		;push PC
+	LD	HL,(CSTART)	;adjust to actual address
+	ADD	HL,DE
+	EX	DE,HL		;put result in DE
+	POP	HL		;pop PC
+	RET			;and return with address in DE
+;
+GETA10:	LD	E,(HL)		;get byte offset
+	LD	A,E		;put offset in A
+	RLA			;propagate sign through A
+	SBC	A,A
+	LD	D,A		;put appr. sign in D
+	EX	DE,HL		;put PC away
+	ADD	HL,DE		;add current PC
+	EX	DE,HL		;retrieve PC
+	INC  	HL 		;bump PC AFTER calculating addr.
+	RET			;and return address in DE
+
+; GETVAR  --  Get variable no. A ( from 1 to (VARANZ) ).
+;	      The adress is returned in DE, the value in BC.
+;
+GETVAR:	EX	DE,HL		;DE = PC
+	LD	HL,(VARS)	;HL = address of variable area
+	DEC	A		;adjust index
+	LD	C,A
+	LD	B,0
+	ADD	HL,BC
+	ADD	HL,BC		;HL = address of variable specified by A
+	LD	C,(HL)
+	INC	HL
+	LD	B,(HL)		;BC = variable value
+	DEC	HL
+	EX	DE,HL		;DE = address of variable, HL = PC
+	RET
+
+JMP:	CALL	GETADR		;get adress (either relative or absolute)
+	EX	DE,HL		;set PC = parameter
+	RET			;process next command
+
+CALL:	CALL	GETADR		;get adress ( REL / ABS ) 
+	EX	(SP),HL		;put PC under ret. address
+	PUSH	HL
+	EX	DE,HL		;move addr. to PC
+	RET			;process next opcode
+
+RET:	POP	BC		;BC = main loop adress
+	POP	HL		;PC = return adress
+	PUSH	BC		;top of stack = main loop adress
+	RET			;process next opcode
+;
+;
+; SPCFNC  --  Special function
+;
+SPCFNC:	LD	A,(HL)
+	INC	HL
+	CP	002H
+	JP	Z,SETRND	;Set variable to random value
+	CP	003H
+	JP	Z,SAVE		;Save game
+	CP	004H
+	JP	Z,RESTOR	;Restore game
+	CP	005H
+	JP	Z,CLEARV	;Clear variables
+	CP	006H
+	JP	Z,INITSP	;Clear stack
+;
+; Return to operating system
+	LD	HL,(WBVECT)	;get warmboot-vector
+	LD	(1),HL		;store in zero-page
+	JP	(HL)		;and jump to warmboot-vector
+;
+; get random value
+SETRND:	LD	A,(HL)		;get variable no.
+	INC	HL		;bump p-PC
+	CALL	GETVAR
+	CALL	RNDA		;generate new random no.
+	LD	(DE),A		;save in variable
+	INC	DE
+	XOR	A		;0 into high-byte
+	LD	(DE),A		;store it into var
+	RET			;and get next cmd.
+
+RNDA:	PUSH	HL
+	LD	HL,(SEED)
+	PUSH	DE
+	EX	DE,HL		;munch random seed
+	LD	A,10
+	SUB	E
+	LD	L,A
+	LD	A,E
+	SBC	A,D
+	LD	H,A
+	ADD	HL,HL
+	ADD	HL,HL
+	ADD	HL,DE
+	INC	HL
+	LD	(SEED),HL	;store new seed
+	LD	A,L		;put value in A
+	POP	DE		;restore regs
+	POP	HL
+	RET
+
+;
+; save game
+SAVE:	PUSH	HL		;save PC
+	LD	DE,FCB		;delete previous save file
+	LD	C,19
+	CALL	5
+	LD	C,22		;make-file function
+	LD	E,21		;write-sequential function
+SAVLOD:	PUSH	DE		;save read/write function
+	XOR	A		;zero CR-field
+	LD	(CR),A
+	LD	DE,FCB		;make file/open file
+	CALL	5
+	POP	BC		;get read/write fn. code
+	INC	A		;if open/make failed, announce error
+	JP	Z,DSKERR
+	LD	HL,(VARS)	;address of variable area
+	LD	B,6		;no. of sectors to read/write
+WRLOOP:	PUSH	HL		;save address
+	PUSH	BC		;save counter
+	EX	DE,HL
+	LD	C,26		;set DMA-address
+	CALL	5
+	LD	DE,FCB
+	POP	BC		;get read/write fn. code
+	PUSH	BC
+	CALL	5
+	POP	BC		;pop read/write-code and downcn.
+	POP	HL		;pop DMA-address
+	OR	A		;error?
+	JP	NZ,DSKERR	;announce if so
+	LD	DE,128		;advance DMA-address
+	ADD	HL,DE
+	DEC	B		;loop until finished
+	JP	NZ,WRLOOP
+	LD	A,C		;get read/write fn.
+	CP	21		;is it write?
+	JP	NZ,POPHL	;return if not
+	LD	DE,FCB
+	LD	C,16
+	CALL	5		;close file if write
+	INC	A		;close successful?
+	JP	NZ,POPHL	;return if so
+DSKERR:	LD	DE,DSKMSG	;announce error if not
+	LD	C,9
+	CALL	5
+POPHL:	POP	HL		;retrieve PC and return
+	RET
+
+DSKMSG:	DEFB	'Error during disk operation!',0DH,0AH,'$'
+;
+; restore game
+RESTOR:	PUSH	HL		;save PC
+	LD	C,15		;open code
+	LD	E,20		;read sequential code
+	JP	SAVLOD		;read variables
+;
+; Clear all variables
+CLEARV:	EX	DE,HL		;save PC in DE
+	LD	A,(VARANZ)
+	LD	B,A		;B = no. of vars
+	LD	HL,(VARS)	;HL = adress of variable area
+	XOR	A		;zero A
+CLR01:	LD	(HL),A		;clear a variable
+	INC	HL
+	LD	(HL),A
+	INC	HL
+	DEC	B		;loop if not finished
+	JP	NZ,CLR01
+	EX	DE,HL		;restore PC
+	RET			;and return
+;
+; Clear Stack
+INITSP:	POP	BC		;get return jump address
+	EX	DE,HL		;move PC out of way
+	LD	HL,(6)
+	LD	SP,HL		;load SP again
+	EX	DE,HL		;put PC back in HL
+	PUSH	BC		;return
+	RET
+;
+;
+; PRINT  --  Prints the variable specified by the parameter in decimal.
+;
+PRINT:	LD	A,(HL)		; A = variable-no. (parameter)
+	INC	HL
+	CALL	GETVAR		; get variable
+	PUSH	HL		; save PC
+	LD	L,C
+	LD	H,B		; HL = value of var.
+	CALL	PRTHL		; print HL
+	POP	HL		; restore PC
+	RET			; and process next command
+;
+;
+; TEXTI  --  Print text immidiate
+;
+TEXTI:	CALL	GETVAL		; get (8/16 bit) value
+	JP	PRTXBC		; and print text
+;
+;
+; TEXTV  --  Print text specified by variable
+;
+TEXTV:	LD	A,(HL)
+	INC	HL
+	CALL	GETVAR		; BC = Variable-contents
+;
+; PRTXBC  --  print text at BC
+;
+PRTXBC:	CALL	GTXAD		; get text adress into DE
+
+;print text at address DE
+PRTELE:	LD	A,(DE)		;get text element
+	CP	3
+	RET	C		;return if end of text (0,1,2)
+	PUSH	DE		;save address
+	CP	05EH		;if >5dh,
+	JP	NC,PRTMTX	;print macro text
+	ADD	A,01DH		;else add 1DH to make ASCII
+	CALL	PUTCHR		;print character
+PRTE01:	POP	DE		;restore
+	INC	DE		;and increment text pointer
+	JP	PRTELE		;process next texttable-element
+;
+PRTMTX:	SUB	05EH		;A=macro text number
+	EX	DE,HL
+	LD	HL,(MTXTAB)	;DE=address of macro text table
+	EX	DE,HL
+	LD	C,A		;BC=macro text no.
+	LD	B,0
+	CALL	GTXAD1		;DE = address of macro text
+	CALL	PRTELE		;print element of macro text table (recursively)
+	JP	PRTE01		;process next table element
+;
+;
+;
+; GTXAD   --  Get text adress of text specified by BC into DE
+;
+GTXAD:	EX	DE,HL
+	LD	HL,(TXTTAB)	; DE = pointer to text table
+	EX	DE,HL
+GTXAD1:	LD	A,B
+	OR	C
+	RET	Z		;RET when BC = 0
+GTXAD2:	LD	A,(DE)		;search for 01 (EOT mark)
+	INC	DE
+	DEC	A		;is the byte 1?
+	JP	NZ,GTXAD2	;loop if not
+	DEC	BC		;when found, DEC BC
+	JP	GTXAD1		;and check if finished.
+
+;
+; PRTHL   --  Print contents of HL in decimal
+;
+PRTHL:	LD	A,H
+	OR	L
+	JP	Z,A11BB		;when HL = 0,print '0' and return
+	LD	C,0		;set 'FORCE PRINT'-flag to 0
+	LD	DE,NUMTAB
+	PUSH	DE		;store address of number table in scratch area
+A1194:	EX	(SP),HL		;save unconverted remainder&get table addr
+	LD	E,(HL)
+	INC	HL
+	LD	D,(HL)		;DE = value of table element
+	INC	HL
+	EX	(SP),HL		;retrieve unconverted remainder
+	LD	A,D
+	OR	E
+	JP	Z,POPHL		;return, if end of table is reached
+;
+	LD	B,'0'		;initialize digit value to zero
+A11A5:	LD	A,L		;subtract conversion table value
+	SUB	E
+	LD	L,A
+	LD	A,H
+	SBC	A,D
+	LD	H,A
+	JP	C,A11B0		;and jump,if the substracted value was too high
+	INC	B		;else increase digit value
+	LD	C,B		;set 'FORCE PRINT' flag to non-zero
+	JP	A11A5		;and continue processing the digit
+;
+A11B0:	ADD	HL,DE		;add erroneously substracted value
+	LD	A,C
+	OR	A		;test 'FORCE PRINT' flag
+	LD	A,B		;get digit to write
+	CALL	NZ,PUTCHR	;print digit value if 'FORCE PRINT'
+	JP	A1194		;and process next digit.
+;
+A11BB:	LD	A,'0'		; when value=0,print '0' only.
+	JP	PUTCHR
+;
+NUMTAB:	DEFW	10000
+	DEFW	1000
+	DEFW	100
+	DEFW	10
+	DEFW	1
+	DEFW	0
+;
+PUTCHR:	PUSH	HL		;save registers
+	PUSH	DE
+	PUSH	BC
+	PUSH	AF
+	CP	025H		;is it a '%'
+	JP	NZ,A10A6	;skip if not.
+	LD	A,(LINPOS)	;check if line empty
+	LD	HL,WLEN		;and no word in buffer
+	OR	(HL)
+	JP	Z,ENDPUT	;ignore '%' if neither
+A10DA:	CALL	WRWORD		;write word in buffer
+	CALL	CRLF		;write cr/lf
+	JP	ENDPUT		;return
+A10A6:	CP	'_'		;is it '_' ?
+	JP	NZ,A10AC
+	LD	A,' '		;make blank if so
+A10AC:	CP	0DH		;is it a cr?
+	JP	Z,A10DA		;write cr/lf if so
+	CP	0CH		;is it a formfeed
+	JP	NZ,PUTC20
+	CALL	WRWORD		;empty word-buffer
+	CALL	CRLF		;write cr/lf
+	LD	A,(CLSCR)	;get clear/screen character
+	LD	C,2		;write to CRT
+	CALL	5
+	JP	ENDPUT		;return
+PUTC20:	PUSH	AF		;save character to write
+	LD	HL,WLEN
+	INC	(HL)		;increment length and put
+	LD	E,(HL)		;in DE
+	LD	D,0
+	ADD	HL,DE		;calculate addr. for next char.
+	LD	(HL),A		;store character
+	LD	HL,LINPOS	;increment position in line
+	INC	(HL)
+	LD	A,(CHPLIN)	;exceeds maximum?
+	CP	(HL)
+	JP	NC,NOWRAP	;jump if not
+	CALL	CRLF		;write cr/lf
+	LD	A,(WLEN)	;save length of current word
+	LD	(LINPOS),A	;as chars/line
+NOWRAP:	POP	AF		;retrieve character
+	CP	' '		;blank?
+	JP	Z,OUTWRD	;write word if so
+	CP	'-'		;'-'?
+OUTWRD:	CALL	Z,WRWORD	;write word if so
+;
+ENDPUT:	POP	AF
+	POP	BC
+	POP	DE
+	POP	HL
+	RET
+
+CRLF:	LD	C,2
+	LD	E,0DH
+	CALL	5
+	LD	C,2
+	LD	E,0AH
+	CALL	5
+	XOR	A
+	LD	(LINPOS),A
+	RET
+
+WRWORD:	LD	HL,WLEN		;length of word
+	LD	B,(HL)		;get length in B
+	LD	(HL),0		;clear length
+	INC	B		;adjust length
+WORDLP:	DEC	B		;decrement length
+	RET	Z		;return if finished
+	INC	HL		;advance to next character of line
+	LD	A,(HL)		;get a character of the word
+	PUSH	HL		;save BC&HL
+	PUSH	BC
+	LD	E,A		;write the character
+	LD	C,2
+	CALL	5
+	POP	BC		;pop BC&HL
+	POP	HL
+	JP	WORDLP		;loop
+;
+;
+MOVEI:	CALL	GETVAL		;get value
+	JP	MOVEV2		;and store in variable
+;
+MOVEV:	LD	A,(HL)		;get variable value
+	INC	HL
+	CALL	GETVAR
+MOVEV2:	PUSH	BC		;save value
+	LD	A,(HL)		;get destination var. addr.
+	INC	HL
+	CALL	GETVAR
+	POP	BC		;pop value
+	EX	DE,HL		;put address in HL
+	LD	(HL),C		;store low-byte of value
+	INC	HL
+	LD	(HL),B		;store high-byte
+	EX	DE,HL		;retrieve PC
+	RET
+;
+ADD:	LD	A,(HL)		;get source var. value
+	INC	HL
+	CALL	GETVAR
+ADD2:	PUSH	BC		;push value
+	LD	A,(HL)
+	INC	HL
+	CALL	GETVAR		;get destination var.
+	EX	(SP),HL		;save PC and get source val.
+	ADD	HL,BC		;add
+	EX	DE,HL		;put address in HL
+	LD	(HL),E		;move sum to dest var.
+	INC	HL
+	LD	(HL),D
+	POP	HL		;pop PC
+	RET
+;
+SUB:	LD	A,(HL)		;get source variable value
+	INC	HL
+	CALL	GETVAR
+	LD	A,C		;negate it
+	CPL
+	LD	C,A
+	LD	A,B
+	CPL
+	LD	B,A
+	INC	BC
+	JP	ADD2		;add negative to dest. var.
+;
+;jump to @(nn+2*@var)
+XJMP:	CALL	GETADR
+	PUSH	DE		;save address
+	LD	A,(HL)
+	CALL	GETVAR
+	POP	HL		;pop jump table address
+	ADD	HL,BC		;add 2*variable value
+	ADD	HL,BC
+	LD	E,(HL)		;get entry
+	INC	HL
+	LD	D,(HL)
+	LD	HL,(CSTART)	;add offset
+	ADD	HL,DE		;jump to there
+	RET
+;
+CMP:	LD	A,(HL)		;this subroutine
+	INC	HL		;sets flags according
+	CALL	GETVAR		;to v2-v1
+	PUSH	BC
+	LD	A,(HL)
+	INC	HL
+	CALL	GETVAR
+	JP	CPBCSP
+;
+BEQ:	CALL	CMP
+	RET	NZ
+	EX	DE,HL
+	RET
+;
+BNE:	CALL	CMP
+	RET	Z
+	EX	DE,HL
+	RET
+;
+BGT:	CALL	CMP
+	RET	Z
+	RET	C
+	EX	DE,HL
+	RET
+;
+BLT:	CALL	CMP
+	RET	NC
+	EX	DE,HL
+	RET
+;
+CMPI:	LD	A,(HL)		;this subroutine sets flags
+	INC	HL		;according to i-v
+	CALL	GETVAR		;(order in opcode is v i)
+	PUSH	BC
+	CALL	GETVAL
+CPBCSP:	POP	DE		;get dest. value
+	LD	A,B		;compare high-bytes
+	CP	D
+	JP	NZ,CPBC2	;if nz, flags are ok
+	LD	A,C		;else compare low-bytes
+	CP	E
+CPBC2:	PUSH	AF		;save flags
+	CALL	GETADR		;put jump address in DE
+	POP	AF		;pop flags
+	RET
+;
+BEQI:	CALL	CMPI
+	RET	NZ
+	EX	DE,HL
+	RET
+;
+BNEI:	CALL	CMPI
+	RET	Z
+	EX	DE,HL
+	RET
+;
+BGTI:	CALL	CMPI
+	RET	Z
+	RET	C
+	EX	DE,HL
+	RET
+;
+BLTI:	CALL	CMPI
+	RET	NC
+	EX	DE,HL
+	RET
+;
+GETLIN:	PUSH	HL		;get a line and tokenize
+	CALL	TOKNIZ
+	POP	HL
+	LD	BC,TOKEN1	;address of 1st token
+	LD	E,3		;no. of tokens to transfer
+GET02:	PUSH	DE		;save count
+	PUSH	BC		;save token address
+	LD	A,(HL)		;get variable address in DE
+	INC	HL
+	CALL	GETVAR
+	POP	BC		;get token address
+	LD	A,(BC)		;get token
+	INC	BC		;bump to next token
+	LD	(DE),A		;save in variable
+	INC	DE
+	XOR	A		;set high byte of var. to 0
+	LD	(DE),A
+	POP	DE		;pop downcounter
+	DEC	E		;loop until 3 tokens transfered
+	JP	NZ,GET02
+	LD	A,(HL)		;get address of wc var.
+	INC	HL
+	CALL	GETVAR
+	LD	A,(WRDCNT)	;get no. of words
+	LD	(DE),A		;put in variable
+	INC	DE
+	XOR	A
+	LD	(DE),A
+	RET
+;TOKNIZ reads a line from the keyboard and tokenizes it
+TOKNIZ:	LD	A,(LINFLG)	;check if last line exhausted
+	OR	A
+	LD	HL,(INPLIN)	;if not, put last scanned chr
+	EX	DE,HL		;in DE and skip line read
+	JP	NZ,NOREAD
+	LD	DE,LINBUF	;read a line from keyboard
+	LD	C,10
+	CALL	5
+	LD	E,0AH		;output linefeed
+	LD	C,2
+	CALL	5
+	LD	HL,LINBUF+2	;store scan address
+	DEC	HL
+	LD	E,(HL)		;calculate address after last chr.
+	LD	D,0
+	EX	DE,HL
+	ADD	HL,DE
+	INC	HL
+	LD	(HL),0		;append a 0
+NOREAD:	LD	BC,TOKEN1	;address of 1st token
+	XOR	A		;clear no. of words
+	LD	(WRDCNT),A
+GETL01:	INC	DE		;skip blanks
+GETL02:	CALL	CHKDEL		;check for delimiters
+	JP	C,GETL99	;if ',' or 0, end.
+	JP	Z,GETL01	;if ' ', loop
+	LD	HL,WRDCNT	;increment word count
+	INC	(HL)
+;process the word
+GETL09:	LD	HL,(WRDTAB)	;get address of first token
+GETL10:	LD	A,(HL)		;end of token table?
+	OR	A
+	JP	Z,NOTFND	;no legal word if so
+	PUSH	DE
+GETL11:	CALL	CHKDEL
+	JP	Z,MATCH		;if delimiter reached, match is found
+	CP	'a'		;is it lowercase?
+	JP	C,NOUPP		;jump if not
+	AND	5FH		;make uppercase
+NOUPP:	XOR	(HL)		;Comp. chars
+	ADD	A,A		;Z means match, C end of entry
+	JP	NZ,NOMATCH	;skip if no match
+	INC	HL		;bump pointers
+	INC	DE
+	JP	NC,GETL11	;loop if not end of table entry
+	DEC	HL		;put HL on last char. of entry
+	CALL	CHKDEL		;end of entered word reached?
+	JP	Z,MATCH		;if so, match
+NOMATCH:LD	A,(HL)		;no match
+	INC	HL		;at end of entry?
+	OR	A
+	JP	P,NOMATCH	;loop if not
+	INC	HL		;skip token no.
+	POP	DE		;restore address in line
+	JP	GETL10		;compare with next token
+MATCH:	LD	A,(HL)		;scan to end of entry
+	OR	A
+	INC	HL		;at end of entry?
+	JP	P,MATCH		;loop if not
+	LD	A,(HL)		;get token no.
+	LD	(BC),A		;move to token buffer
+	INC	BC		;advance token buffer pointer
+	POP	AF		;remove saved text pointer
+	JP	GETL02		;check the next word in line
+;
+NOTFND:	INC	DE	;no legal token, search for next word
+	CALL	CHKDEL
+	JP	NZ,NOTFND	;loop if no delimiter
+	JP	GETL02		;examine next word
+
+GETL99:	LD	(LINFLG),A	;save end-delimiter
+	EX	DE,HL		;put delimiter address in HL
+	LD	(INPLIN),HL	;save for next call
+	XOR	A		;clear spurious token no.
+	LD	(BC),A
+	RET
+
+CHKDEL:	LD	A,(DE)		;get char
+	CP	' '		;blank?
+	RET	Z		;return Z and NC if so
+	OR	A		;0?
+	SCF
+	RET	Z		;return Z and C if so
+	CP	','		;',' ?
+	SCF
+	RET	Z		;return Z and C if so
+	OR	A		;else return NZ and NC
+	RET
+;
+;The room-link table contains information about the linkage of the rooms.
+;It contains 2-byte entries. The entries start with room no. 1. The table
+;end is marked by 0. The structure of the entries is as follows:
+;1st byte:
+;if bit 7 is set, this is the last link of a room, if reset, more links
+;of the same room follow.
+;Bits 6-4 contain flags. They are returned by the p-code call SRLT.
+;Bit 4 has a reserved meaning: if it is set, the link is active in 2
+;directions. If a link is not found, a link starting from another room
+;leading in opposite direction to the requested room is searched.
+;If one is found with bit 4 set, it is used.
+;The other flag bits may be used to indicate obvious/non obvious exits
+;or exits through a door. They are not used in the matching process.
+;Bits 3-0 of the 1st byte contain the direction of the link.
+;Directions are:
+;
+;1 North
+;2 Northeast
+;3 East
+;4 South
+;5 Southeast
+;6 Southwest
+;7 West
+;8 Northwest
+;9 Up
+;A Down
+;B In
+;C Out
+;D Cross
+;E Climb
+;F Jump
+;
+;The second byte is the room which is reached through that link.
+;
+
+SRLT:	LD	A,(HL)
+	INC	HL
+	CALL	GETVAR
+	PUSH	BC		;save room no.
+	LD	A,(HL)
+	INC	HL
+	CALL	GETVAR
+	POP	DE		;get room no. E
+	LD	D,C		;set D to direction
+	PUSH	HL		;save PC
+	CALL	RLDEAC		;search table
+	POP	HL		;pop PC
+	PUSH	BC		;save linked room
+	PUSH	AF		;save flag byte
+	LD	A,(HL)		;get variable address
+	INC	HL
+	CALL	GETVAR
+	POP	AF		;retrieve flag byte
+	RRCA			;isolate flags (6-4)
+	RRCA			;and put in bits 2-0
+	RRCA
+	RRCA
+	AND	00000111B
+	LD	(DE),A		;store in variable
+	INC	DE
+	XOR	A
+	LD	(DE),A
+	LD	A,(HL)		;get address of linked room
+	INC	HL
+	CALL	GETVAR
+	POP	BC		;get saved linked room
+	LD	A,C		;put in A
+	LD	(DE),A		;store in variable
+	INC	DE
+	XOR	A
+	LD	(DE),A
+	RET
+;
+RLDEAC:	LD	HL,(RLTAB)	;search for room E
+	LD	B,E		;room no. in B
+RLDE02:	DEC	B	;room found?
+	JP	Z,A13C9		;jump if so
+A13C1:	LD	A,(HL)		;get flag byte
+	INC	HL		;increment to next entry
+	INC	HL
+	OR	A		;was it last entry of room?
+	JP	P,A13C1		;loop if not
+	JP	RLDE02		;downcount if so
+A13C9:	LD	A,(HL)		;record found, address in HL
+	AND	00FH		;direction match?
+	CP	D
+	JP	NZ,A13D3	;check for next if not
+	LD	A,(HL)		;match, load A with flag byte
+	INC	HL
+	LD	C,(HL)		;C with linked room
+	RET
+;
+A13D3:	LD	A,(HL)		;no match, last entry of room?
+	OR	A
+	JP	M,A13DB		;if so, start inverted search
+	INC	HL		;if not, advance to next entry
+	INC	HL		;for this room
+	JP	A13C9		;and loop
+;
+A13DB:	LD	C,D		;load BC with direction
+	LD	B,0
+	LD	HL,T1409	;calculate reverse direction in D
+	ADD	HL,BC
+	LD	D,(HL)		;D now contains reverse direction
+	LD	HL,(RLTAB)
+	LD	C,1		;C contains current room no.
+A13E8:	LD	A,(HL)		;check for 2-way-link
+	AND	10H
+	JP	Z,A13FA		;ignore if 1-way-link
+	LD	A,(HL)		;else compare directions
+	AND	00FH
+	CP	D		;match?
+	JP	NZ,A13FA	;jump if no match
+	INC	HL		;check if link leads
+	LD	A,(HL)		;to wanted room
+	CP	E
+	DEC	HL
+	LD	A,(HL)		;put flags in A, C contains room no.
+	RET	Z		;return if match
+;
+A13FA:	LD	A,(HL)		;no match, last entry of room?
+	OR	A
+	JP	P,A13FF
+	INC	C		;if so, inc room no
+A13FF:	INC	HL		;skip to next entry
+	INC	HL
+	OR	A		;check for end of table
+	JP	NZ,A13E8	;loop if not
+	XOR	A		;else return 0, not found
+	LD	C,A
+	RET
+;
+;This table is used to determine the reverse of a given direction
+;
+T1409:	DEFB	000H
+	DEFB	004H
+	DEFB	006H
+	DEFB	007H
+	DEFB	001H
+	DEFB	008H
+	DEFB	002H
+	DEFB	003H
+	DEFB	005H
+	DEFB	00AH
+	DEFB	009H
+	DEFB	00CH
+	DEFB	00BH
+	DEFB	0FFH
+	DEFB	0FFH
+	DEFB	00FH
+
+GREATO:	PUSH	AF	;save opcode
+;get address of byte table with no. in A
+;and put it in DE
+	AND	00011111B	;mask table no.
+	ADD	A,A		;multiply by 2 to get index
+	LD	C,A		;move to BC
+	LD	B,0
+	PUSH	HL		;save PC
+	LD	HL,RLTAB	;calculate table addr. addr.
+	ADD	HL,BC
+	LD	E,(HL)		;get table address in DE
+	INC	HL
+	LD	D,(HL)
+	POP	HL		;pop PC
+	POP	AF		;retrieve opcode
+	CP	0E0H
+	JP	NC,SXV
+	CP	0C0H
+	JP	NC,LXI
+	CP	0A0H
+	JP	NC,LXV
+;
+;80+Offset Op V
+;Stores the 8-bit Value in V at Position Op (8-bit) in Table Offset
+SXI:	LD	C,(HL)		;get offset in BC
+	INC	HL
+	LD	B,0
+	JP	STAIDX
+;
+;E0+Offset V1 V2
+;Stores the 8-bit value in V2 at position V1 in table Offset
+;
+SXV:	PUSH	DE
+	LD	A,(HL)	;GET VAR CONTENTS
+	INC	HL
+	CALL	GETVAR
+	POP	DE
+STAIDX:	EX	DE,HL
+	ADD	HL,BC
+	EX	DE,HL
+	PUSH	DE
+	LD	A,(HL)
+	INC	HL
+	CALL	GETVAR	;GET NEXT VAR FROM OPCODE
+	POP	DE
+	LD	A,C
+	LD	(DE),A	;STORE AT CALCULATED ADDRESS
+	RET
+;
+;C0+Offset Op V2
+;Stores element Op of table Offset in V2
+LXI:	LD	C,(HL)
+	INC	HL
+	LD	B,0
+	JP	STVIDX
+;
+;A0+Offset V1 V2
+;Stores element V1 of table Offset in V2
+LXV:	PUSH	DE
+	LD	A,(HL)
+	INC	HL
+	CALL	GETVAR
+	POP	DE
+STVIDX:	EX	DE,HL
+	ADD	HL,BC
+	EX	DE,HL
+	LD	A,(DE)
+	PUSH	AF
+	LD	A,(HL)
+	INC	HL
+	CALL	GETVAR
+	POP	AF
+	LD	(DE),A
+	INC	DE
+	XOR	A
+	LD	(DE),A
+	RET
+
+;
+SJMP:	LD	E,(HL)		;get shorth jump address
+	LD	D,0
+	LD	HL,(CSTART)	;add offset
+	ADD	HL,DE		;and jump to there
+	RET
+;
+;change the following FCB as you like
+FCB:	DEFB	0,'SNOWBALLSAV',0,0,0
+	DEFS	17
+CR:	DEFS	1
+;
+; Scratch area
+;
+
+	DSEG
+
+LINPOS:	DEFS	1
+WLEN:	DEFS	1
+WRDADR:	DEFS	49
+LINFLG:	DEFS	1
+INPLIN:	DEFS	2
+WBVECT:	DEFS	2
+LINBUF:	DEFS	2
+TOKEN1:	DEFS	81		;80 chars+0
+WRDCNT:	DEFS	1
+SEED:	DEFS	2
+DBYTEF:	DEFS	1
+JRFLAG:	DEFS	1
+X0D00:	DEFS	300H		; VARIABLEN/SEKTORPUFFER
+X0DB0	EQU	X0D00+0B0H
+X0E91	EQU	X0D00+191H
+
+	END	COLD
+
